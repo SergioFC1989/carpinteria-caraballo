@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+//import/no-anonymous-default-export
+import { Route, Routes as Switch, BrowserRouter } from 'react-router-dom';
+import { Grommet } from 'grommet';
+import { RecoilRoot } from 'recoil';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import theme from './theme';
+import routesPath from './routes';
+import GlobalStyle from './common/components/GlobalStyles';
+
+const App = () => (
+  <>
+    <GlobalStyle />
+    <Grommet theme={theme}>
+      <BrowserRouter>
+        <RecoilRoot>
+          <Switch>
+            {routesPath.map(({ path, ...props }) => (
+              <Route key={path} path={path} {...props} />
+            ))}
+          </Switch>
+        </RecoilRoot>
+      </BrowserRouter>
+    </Grommet>
+  </>
+);
 
 export default App;
