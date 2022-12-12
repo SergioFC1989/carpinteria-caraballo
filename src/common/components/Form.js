@@ -87,7 +87,7 @@ const Form = ({ onClickSubmit, schema, width, ...props }) => {
       <Box width={width} gap="medium" {...props}>
         <Box fill="horizontal" gap="small">
           {schema.map((props, key) => (
-            <>
+            <Box key={key.id}>
               <Field key={key?.id} label={props.field}>
                 {types[props.type](
                   { ...register(props.key, { required: true }) },
@@ -100,7 +100,7 @@ const Form = ({ onClickSubmit, schema, width, ...props }) => {
                   Revise este campo por favor
                 </Paragraph>
               )}
-            </>
+            </Box>
           ))}
         </Box>
         <Box
@@ -110,7 +110,7 @@ const Form = ({ onClickSubmit, schema, width, ...props }) => {
           justify="center"
           margin={{ vertical: 'small' }}
         >
-          <Button fill="horizontal" primary label="Aceptar" type="submit" />
+          <Button primary fill="horizontal" label="Aceptar" type="submit" />
         </Box>
       </Box>
     </GForm>
@@ -118,7 +118,7 @@ const Form = ({ onClickSubmit, schema, width, ...props }) => {
 };
 
 const propTypes = {
-  onClickSubmit: PropTypes.func.isRequired,
+  onClickSubmit: PropTypes.func,
   schema: PropTypes.array,
   width: PropTypes.any,
 };

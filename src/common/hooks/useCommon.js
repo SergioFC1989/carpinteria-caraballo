@@ -4,22 +4,14 @@ import { useRecoilState } from 'recoil';
 import { onAuthStateChanged } from 'firebase/auth';
 
 import errorsFirestoreAPI from '../../api/errors/firebase-errors';
-import queryFirestoreAPI from '../../api/query/firebase-query';
 import { auth } from '../../api/config/firebase-config';
 
-import {
-  stateAuth,
-  stateAuthGetGoogle,
-  stateIsShow,
-  stateNotification,
-} from '../context/common-context';
+import { stateIsShow, stateNotification } from '../context/common-context';
 
 const useCommon = () => {
   const navigate = useNavigate();
   const [isShow, setIsShow] = useRecoilState(stateIsShow);
   const [notification, setNotification] = useRecoilState(stateNotification);
-  const [authUser, setAuthUser] = useRecoilState(stateAuth);
-  const [authGoogle, setAuthGoogle] = useRecoilState(stateAuthGetGoogle);
 
   const handleCommon = {
     show: (data = isShow) => setIsShow({ ...isShow, ...data }),
@@ -40,38 +32,11 @@ const useCommon = () => {
     );
   };
 
-  useEffect(async () => {
-    onAuthStateChanged(auth, (user) => {
-      if (user !== null) {
-        try {
-          const usersFirestore = queryFirestoreAPI.get.user(
-            'email',
-            user?.email
-          );
-          if (usersFirestore.length <= 0) {
-            const auth = {
-              photoURL: user?.photoURL,
-              displayName: user?.displayName,
-              email: user?.email,
-            };
-            setAuthGoogle(auth);
-            return (
-              window.location.pathname !== '/profile' && navigate('/profile')
-            );
-          }
-          setAuthUser(...usersFirestore);
-          navigate('/dashboard');
-        } catch (error) {
-          handleErrors(error);
-        }
-      }
-      return navigate('/login');
-    });
-  }, [authUser]);
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => user === null && navigate('/login'));
+  }, []);
 
   return {
-    authUser,
-    authGoogle,
     isShow,
     notification,
     navigate,
