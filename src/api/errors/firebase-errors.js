@@ -1,4 +1,4 @@
-export const errorsFirestoreAPI = {
+const errorsFirestoreAPI = {
   'Firebase: Error (auth/user-not-found).': 'El usuario no existe',
   'Firebase: Error (auth/wrong-password).': 'La contraseña es incorrecta',
   'Firebase: Error (auth/network-request-failed).': 'Sin conexión a internet',
