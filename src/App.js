@@ -3,9 +3,10 @@ import { Route, Routes as Switch, BrowserRouter } from 'react-router-dom';
 import { Grommet } from 'grommet';
 import { RecoilRoot } from 'recoil';
 
-import theme from './theme';
-import routesPath from './routes';
 import GlobalStyle from './common/components/GlobalStyles';
+import theme from './theme';
+import Announcements from './common/components/Announcements';
+import routesPath from './routes';
 
 const App = () => (
   <>
@@ -13,6 +14,7 @@ const App = () => (
     <Grommet theme={theme}>
       <BrowserRouter>
         <RecoilRoot>
+          <Announcements />
           <Switch>
             {routesPath.map(({ path, ...props }) => (
               <Route key={path} path={path} {...props} />

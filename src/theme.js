@@ -11,6 +11,7 @@ const CustomTheme = deepMerge(grommet, {
       'regular-grey': '#B4B4B4',
       'medium-grey': '#9B9B9B',
       'light-grey': '#E4E4E4',
+      'status-error': '#DF5539',
     },
     breakpoints: {
       small: {
@@ -139,14 +140,14 @@ const CustomTheme = deepMerge(grommet, {
     },
   },
   button: {
-    border: {
-      radius: '2em',
-    },
     primary: {
       opacity: 0,
       color: '#FFFFFF',
       background: {
         color: 'brand',
+      },
+      border: {
+        radius: '2em',
       },
       extend: `
         font-size: 1.53em;
@@ -161,8 +162,8 @@ const CustomTheme = deepMerge(grommet, {
       },
       border: {
         color: '#000000',
-        width: '0.2em',
-        round: 'none',
+        width: '0.1em',
+        radius: '1em',
       },
       padding: {
         // vertical: '1em'
@@ -175,6 +176,10 @@ const CustomTheme = deepMerge(grommet, {
       background: 'transparent',
       color: 'black',
       pad: '0',
+      extend: `
+        font-weight: normal;
+
+      `,
     },
   },
   pagination: {
