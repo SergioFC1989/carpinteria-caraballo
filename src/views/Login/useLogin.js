@@ -11,7 +11,9 @@ const useLogin = () => {
 
   const onLoginWithEmail = async (value) => {
     try {
+      handleCommon.show({ loading: true });
       await onAuthSignInWithEmail(value.email, value.password);
+      handleCommon.show({ loading: false });
       navigate('/dashboard');
     } catch (error) {
       handleCommon.show({ loading: false });

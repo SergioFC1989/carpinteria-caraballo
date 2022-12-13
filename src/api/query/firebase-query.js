@@ -1,12 +1,17 @@
-import { ADD_DOCUMENT, GET_DOCUMENT } from '../request/firebase-request';
+import {
+  ADD_DOCUMENT,
+  GET_DOCUMENT,
+  GET_ALL_DOCUMENTS,
+} from '../request/firebase-request';
 
 const queryFirestoreAPI = {
-  delete: {},
-  get: {
-    user: (key, value) => GET_DOCUMENT('usuarios', key, value),
+  DELETE: {},
+  GET: {
+    USER: (key, value) => GET_DOCUMENT('usuarios', key, value),
+    DOCUMENTS: (url) => GET_ALL_DOCUMENTS(url),
   },
-  post: {
-    user: (data) => ADD_DOCUMENT('usuarios', data),
+  POST: {
+    USER: (data) => ADD_DOCUMENT('usuarios', data),
   },
 };
 

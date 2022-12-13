@@ -1,11 +1,12 @@
-import { Notification, Spinner } from 'grommet';
+import { Notification } from 'grommet';
+import LoadSpinner from './LoadSpinner';
 import useCommon from '../hooks/useCommon';
 
 const Announcements = ({ ...props }) => {
   const { isShow, notification, handleCommon } = useCommon();
   return (
     <>
-      {isShow.loading && <Spinner {...props} />}
+      {isShow.loading && <LoadSpinner {...props} />}
       {notification.visible && (
         <Notification
           toast

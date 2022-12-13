@@ -15,7 +15,15 @@ import {
 import Field from './Field';
 import FieldSelectSearch from './FieldSelectSearch';
 
-const Form = ({ onClickSubmit, schema, width, ...props }) => {
+const Form = ({
+  children,
+  onClickSubmit,
+  schema = [],
+  width,
+  direction,
+  disabledButton,
+  ...props
+}) => {
   const {
     control,
     formState: { errors },
@@ -30,16 +38,20 @@ const Form = ({ onClickSubmit, schema, width, ...props }) => {
           name={props.name}
           control={control}
           render={({ field }) => (
-            <TextInput
-              key={key}
-              {...field}
-              type="text"
-              onChange={(e) => field.onChange(e.target.value.toUpperCase())}
-            />
+            <Box width="large">
+              <TextInput
+                key={key}
+                {...field}
+                type="text"
+                onChange={(e) => field.onChange(e.target.value.toUpperCase())}
+              />
+            </Box>
           )}
         />
       ),
-      number: (props, key) => <TextInput key={key} type="number" {...props} />,
+      number: (props, key) => (
+        <TextInput step="any" key={key} type="number" {...props} />
+      ),
       date: (props, key) => (
         <DateInput key={key} format="dd/mm/yyyy" {...props} />
       ),
@@ -85,7 +97,7 @@ const Form = ({ onClickSubmit, schema, width, ...props }) => {
   return (
     <GForm onSubmit={handleSubmit(onSubmit)}>
       <Box width={width} gap="medium" {...props}>
-        <Box fill="horizontal" gap="small">
+        <Box fill="horizontal" gap="small" direction={direction}>
           {schema.map((props, key) => (
             <Box key={key.id}>
               <Field key={key?.id} label={props.field}>
@@ -103,29 +115,30 @@ const Form = ({ onClickSubmit, schema, width, ...props }) => {
             </Box>
           ))}
         </Box>
-        <Box
-          direction="row"
-          gap="medium"
-          fill="horizontal"
-          justify="center"
-          margin={{ vertical: 'small' }}
-        >
+        {children}
+        {!disabledButton && (
           <Button primary fill="horizontal" label="Aceptar" type="submit" />
-        </Box>
+        )}
       </Box>
     </GForm>
   );
 };
 
 const propTypes = {
+  children: PropTypes.node.isRequired,
   onClickSubmit: PropTypes.func,
+  disabledButton: PropTypes.bool,
   schema: PropTypes.array,
   width: PropTypes.any,
+  direction: PropTypes.string,
 };
 
 const defaultProps = {
+  disabledButton: false,
+  children: null,
   schema: [{ field: '', key: '', type: '', options: [] }],
-  width: PropTypes.string,
+  width: 'medium',
+  direction: 'column',
 };
 
 PropTypes.checkPropTypes(propTypes, defaultProps, 'prop', 'Form');

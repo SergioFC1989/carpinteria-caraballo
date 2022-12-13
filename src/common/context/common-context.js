@@ -19,3 +19,11 @@ export const stateAuthGetGoogle = atom({
   key: 'stateAuthGetGoogle',
   default: undefined,
 });
+
+export const stateHeaderDefault = atom({
+  key: 'stateHeaderDefault',
+  default: {
+    title: 'Bienvenid@!!',
+    message: 'La app que te permite trabajar de manera comoda y rapida',
+  },
+});

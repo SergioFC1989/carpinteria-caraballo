@@ -20,7 +20,6 @@ export const GET_DOCUMENT = async (url, key, value) => {
     const ref = collection(db, url);
     const q = query(ref, where(key, '==', value));
     const querySnapshot = await getDocs(q);
-    console.log(querySnapshot);
     querySnapshot.forEach((doc) => {
       data.push(doc.data());
     });

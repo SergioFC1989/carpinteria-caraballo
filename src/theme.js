@@ -156,12 +156,12 @@ const CustomTheme = deepMerge(grommet, {
     },
     secondary: {
       opacity: 0,
-      color: '#000000',
+      color: '#FFFFFF',
       background: {
-        color: '#FFFFFF',
+        color: '#000000',
       },
       border: {
-        color: '#000000',
+        color: '#FFFFFF',
         width: '0.1em',
         radius: '1em',
       },
