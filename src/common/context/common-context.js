@@ -27,3 +27,27 @@ export const stateHeaderDefault = atom({
     message: 'La app que te permite trabajar de manera comoda y rapida',
   },
 });
+
+export const stateFetchAPI = atom({
+  key: 'stateFetchAPI',
+  default: [],
+});
+
+export const stateFormDocument = atom({
+  key: 'stateFormDocument',
+  default: [],
+});
+
+export const stateFormClient = atom({
+  key: 'stateFormClient',
+  default: {},
+});
+
+export const stateVisibilityForm = atom({
+  key: 'stateVisibilityForm',
+  default: {
+    document: true,
+    client: false,
+    details: false,
+  },
+});

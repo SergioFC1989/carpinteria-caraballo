@@ -29,23 +29,23 @@ const Form = ({
     formState: { errors },
     handleSubmit,
     register,
+    resetField,
   } = useForm();
 
   const types = useMemo(
     () => ({
       text: (props, key) => (
         <Controller
+          defaultValue=" "
           name={props.name}
           control={control}
           render={({ field }) => (
-            <Box width="large">
-              <TextInput
-                key={key}
-                {...field}
-                type="text"
-                onChange={(e) => field.onChange(e.target.value.toUpperCase())}
-              />
-            </Box>
+            <TextInput
+              key={key}
+              {...field}
+              type="text"
+              onChange={(e) => field.onChange(e.target.value.toUpperCase())}
+            />
           )}
         />
       ),
@@ -92,7 +92,10 @@ const Form = ({
     [control]
   );
 
-  const onSubmit = (value) => onClickSubmit(value);
+  const onSubmit = (value) => {
+    onClickSubmit(value);
+    return schema.map((props) => resetField(props.key));
+  };
 
   return (
     <GForm onSubmit={handleSubmit(onSubmit)}>
@@ -100,9 +103,11 @@ const Form = ({
         <Box fill="horizontal" gap="small" direction={direction}>
           {schema.map((props, key) => (
             <Box key={key.id}>
-              <Field key={key?.id} label={props.field}>
+              <Field key={key?.id} label={props.field} width={props.width}>
                 {types[props.type](
-                  { ...register(props.key, { required: true }) },
+                  {
+                    ...register(props.key, { max: props.max, required: true }),
+                  },
                   key,
                   props?.options
                 )}
@@ -117,7 +122,7 @@ const Form = ({
         </Box>
         {children}
         {!disabledButton && (
-          <Button primary fill="horizontal" label="Aceptar" type="submit" />
+          <Button fill primary label="Aceptar" type="submit" />
         )}
       </Box>
     </GForm>
@@ -125,7 +130,6 @@ const Form = ({
 };
 
 const propTypes = {
-  children: PropTypes.node.isRequired,
   onClickSubmit: PropTypes.func,
   disabledButton: PropTypes.bool,
   schema: PropTypes.array,
@@ -135,7 +139,6 @@ const propTypes = {
 
 const defaultProps = {
   disabledButton: false,
-  children: null,
   schema: [{ field: '', key: '', type: '', options: [] }],
   width: 'medium',
   direction: 'column',

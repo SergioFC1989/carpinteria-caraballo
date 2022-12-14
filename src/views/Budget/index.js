@@ -1,20 +1,29 @@
+import { useRecoilValue } from 'recoil';
 import { Box, Tab, Tabs } from 'grommet';
-import Main from '../../common/components/Main';
-import DocumentForm from '../DocumentForm';
 
-const Budget = () => (
-  <Main>
-    <Box>
-      <Tabs alignControls="start">
+import Main from '../../common/components/Main';
+import FormDocument from '../Form/components/FormDocument';
+import FormClient from '../Form/components/FormClient';
+import FormDetails from '../Form/components/FormDetails';
+
+import { stateVisibilityForm } from '../../common/context/common-context';
+
+const Bill = () => {
+  const visible = useRecoilValue(stateVisibilityForm);
+  return (
+    <Main>
+      <Tabs>
         <Tab title="Nuevo">
-          <DocumentForm />
+          {visible.document && <FormDocument />}
+          {visible.client && <FormClient />}
+          {visible.details && <FormDetails />}
         </Tab>
         <Tab title="Visualizar">
           <Box pad="medium">Ver</Box>
         </Tab>
       </Tabs>
-    </Box>
-  </Main>
-);
+    </Main>
+  );
+};
 
-export default Budget;
+export default Bill;

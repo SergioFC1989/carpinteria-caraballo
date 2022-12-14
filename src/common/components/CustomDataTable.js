@@ -23,14 +23,9 @@ const CustomDataTable = ({
   const [columns, setColumns] = useState([]);
 
   useEffect(() => {
-    console.log(schemaTable);
     const customColumns = schemaTable.map((columns) => ({
       property: columns,
-      header: (
-        <Text weight="bold" color="dark-grey">
-          {columns}
-        </Text>
-      ),
+      header: <Text weight="bold">{columns}</Text>,
       align: 'center',
       primary: false,
     }));
@@ -71,7 +66,7 @@ const CustomDataTable = ({
               <Button
                 hoverIndicator
                 title="Eliminar"
-                icon={<Trash />}
+                icon={<Trash color="status-error" />}
                 onClick={onClickDelete}
               />
             )}
@@ -79,7 +74,6 @@ const CustomDataTable = ({
         ),
       },
     ];
-    // eslint-disable-next-line no-unused-expressions
     actions
       ? setColumns(customActionsProps.concat(customColumns))
       : setColumns(customColumns);

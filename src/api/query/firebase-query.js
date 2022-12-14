@@ -12,6 +12,7 @@ const queryFirestoreAPI = {
   },
   POST: {
     USER: (data) => ADD_DOCUMENT('usuarios', data),
+    DOCUMENTS: (url, data) => ADD_DOCUMENT(url, data),
   },
 };
 

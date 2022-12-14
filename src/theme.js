@@ -12,6 +12,7 @@ const CustomTheme = deepMerge(grommet, {
       'medium-grey': '#9B9B9B',
       'light-grey': '#E4E4E4',
       'status-error': '#DF5539',
+      'status-information': '#69BCDE',
     },
     breakpoints: {
       small: {
@@ -161,14 +162,13 @@ const CustomTheme = deepMerge(grommet, {
         color: '#000000',
       },
       border: {
-        color: '#FFFFFF',
-        width: '0.1em',
-        radius: '1em',
+        radius: '2em',
       },
       padding: {
         // vertical: '1em'
       },
       extend: `
+        font-size: 1.53em;
         height: 2em;
       `,
     },
