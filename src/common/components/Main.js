@@ -1,8 +1,6 @@
 import { useRecoilState } from 'recoil';
 import { Box, Button, Header, Heading, Text } from 'grommet';
 import { Group, Document, Note, Power } from 'grommet-icons';
-
-import useCommon from '../hooks/useCommon';
 import { onAuthSignOut } from '../../api/auth/firebase-auth';
 import {
   stateFetchAPI,
@@ -10,9 +8,11 @@ import {
   stateHeaderDefault,
 } from '../context/common-context';
 import useForm from '../../views/Form/useForm';
+import useCommon from '../hooks/useCommon';
+import Question from './Question';
 
 const Main = ({ children }) => {
-  const { navigate } = useCommon();
+  const { navigate, handleCommon, isShow } = useCommon();
   const { setRefDoc } = useForm();
   const [optionsHeader, setOptionsHeader] = useRecoilState(stateHeaderDefault);
   const [, setDatum] = useRecoilState(stateFetchAPI);
@@ -20,6 +20,16 @@ const Main = ({ children }) => {
 
   return (
     <>
+      {isShow.question && (
+        <Question
+          message="¿Está seguro de que quiere cerrar la sesión?"
+          onCancel={() => handleCommon.show({ question: false })}
+          onSubmit={() => {
+            handleCommon.show({ question: false });
+            return onAuthSignOut();
+          }}
+        />
+      )}
       <Header
         fill="horizontal"
         background="#FFFFFFFF"
@@ -84,7 +94,7 @@ const Main = ({ children }) => {
           <Button
             icon={<Power size="small" color="status-error" />}
             label="Salir"
-            onClick={() => onAuthSignOut()}
+            onClick={() => handleCommon.show({ question: true })}
           />
         </Box>
       </Header>

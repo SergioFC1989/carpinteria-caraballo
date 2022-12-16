@@ -34,7 +34,7 @@ const useCommon = () => {
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => user === null && navigate('/login'));
-  }, []);
+  }, [auth]);
 
   return {
     isShow,

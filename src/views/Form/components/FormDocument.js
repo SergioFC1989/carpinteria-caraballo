@@ -3,12 +3,15 @@ import { AddCircle, CircleInformation, Erase } from 'grommet-icons';
 
 import CustomDataTable from '../../../common/components/CustomDataTable';
 import Form from '../../../common/components/Form';
+import Question from '../../../common/components/Question';
 import ModalRef from './ModalRef';
 
 import { schemaColumnsDocument, schemaFormDocument } from '../prop-types';
 import useForm from '../useForm';
+import useCommon from '../../../common/hooks/useCommon';
 
 const FormDocument = () => {
+  const { isShow, handleCommon } = useCommon();
   const {
     refDoc,
     dataFormDocument,
@@ -26,6 +29,16 @@ const FormDocument = () => {
 
   return (
     <>
+      {isShow.question && (
+        <Question
+          message="¿Está seguro de que quiere eliminar los datos de la tabla?"
+          onCancel={() => handleCommon.show({ question: false })}
+          onSubmit={() => {
+            handleCommon.show({ question: false });
+            return clearTableDocument();
+          }}
+        />
+      )}
       {isModalRef && <ModalRef onClickOutside={() => setIsModalRef(false)} />}
       <Box width="xlarge" pad="small" gap="medium" animation="fadeIn">
         <Box
@@ -73,7 +86,7 @@ const FormDocument = () => {
               <Button
                 icon={<Erase />}
                 label="Limpiar"
-                onClick={clearTableDocument}
+                onClick={() => handleCommon.show({ question: true })}
               />
               <Button icon={<AddCircle />} label="Añadir" type="submit" />
             </Box>
