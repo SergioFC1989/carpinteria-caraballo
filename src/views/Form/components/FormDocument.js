@@ -35,7 +35,10 @@ const FormDocument = () => {
           round="medium"
           background="light-2"
         >
-          <Box onClick={() => setIsModalRef(true)}>
+          <Box
+            onClick={() => setIsModalRef(true)}
+            title="Click aquí, para cambiar el numero de referencia"
+          >
             <Heading margin="none" level={2}>
               Nº Referencia: {refDoc}
             </Heading>

@@ -32,7 +32,6 @@ const useForm = () => {
     value.length > 0 &&
       (() => {
         const ref = value.map((elem) => elem?.Ref);
-        console.log(ref);
         setRefDoc(Math.max(...ref) + 1);
       })();
   };
@@ -144,7 +143,6 @@ const useForm = () => {
   };
 
   useEffect(() => {
-    console.log(datum);
     optionsHeader?.title === 'Bienvenid@!!' && navigate('/dashboard');
     datum.length <= 0 && fetchAPI();
   }, []);
