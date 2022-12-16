@@ -7,6 +7,7 @@ import FormClient from '../Form/components/FormClient';
 import FormDetails from '../Form/components/FormDetails';
 
 import { stateVisibilityForm } from '../../common/context/common-context';
+import ViewData from '../ViewData/index';
 
 const Bill = () => {
   const visible = useRecoilValue(stateVisibilityForm);
@@ -19,7 +20,9 @@ const Bill = () => {
           {visible.details && <FormDetails />}
         </Tab>
         <Tab title="Visualizar">
-          <Box pad="medium">Ver</Box>
+          <Box pad="medium">
+            <ViewData />
+          </Box>
         </Tab>
       </Tabs>
     </Main>

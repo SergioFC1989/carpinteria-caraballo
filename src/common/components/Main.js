@@ -9,9 +9,11 @@ import {
   stateFormDocument,
   stateHeaderDefault,
 } from '../context/common-context';
+import useForm from '../../views/Form/useForm';
 
 const Main = ({ children }) => {
   const { navigate } = useCommon();
+  const { setRefDoc } = useForm();
   const [optionsHeader, setOptionsHeader] = useRecoilState(stateHeaderDefault);
   const [, setDatum] = useRecoilState(stateFetchAPI);
   const [, setDataFormDocument] = useRecoilState(stateFormDocument);
@@ -34,6 +36,7 @@ const Main = ({ children }) => {
             });
             setDatum([]);
             setDataFormDocument([]);
+            setRefDoc(0);
             navigate('/dashboard');
           }}
         />
@@ -49,6 +52,7 @@ const Main = ({ children }) => {
               });
               setDatum([]);
               setDataFormDocument([]);
+              setRefDoc(0);
               navigate('/dashboard/budget');
             }}
           />
@@ -63,6 +67,7 @@ const Main = ({ children }) => {
               });
               setDatum([]);
               setDataFormDocument([]);
+              setRefDoc(0);
               navigate('/dashboard/bill');
             }}
           />
@@ -72,6 +77,7 @@ const Main = ({ children }) => {
             onClick={() => {
               setDatum([]);
               setDataFormDocument([]);
+              setRefDoc(0);
               navigate('/dashboard/clients');
             }}
           />

@@ -20,6 +20,11 @@ export const stateAuthGetGoogle = atom({
   default: undefined,
 });
 
+export const stateRefDoc = atom({
+  key: 'stateRefDoc',
+  default: 0,
+});
+
 export const stateHeaderDefault = atom({
   key: 'stateHeaderDefault',
   default: {

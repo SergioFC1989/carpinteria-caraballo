@@ -8,8 +8,8 @@ import {
   Form as GForm,
   TextInput,
   Select,
-  Paragraph,
   RadioButtonGroup,
+  Text,
 } from 'grommet';
 
 import Field from './Field';
@@ -113,9 +113,15 @@ const Form = ({
                 )}
               </Field>
               {errors[props.key] && (
-                <Paragraph key={key?.id} margin="none" color="red" size="small">
-                  Revise este campo por favor
-                </Paragraph>
+                <Text
+                  key={key?.id}
+                  margin="xxsmall"
+                  color="status-error"
+                  size="small"
+                  weight="bold"
+                >
+                  {`Revise el campo ${props?.key} por favor`}
+                </Text>
               )}
             </Box>
           ))}

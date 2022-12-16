@@ -24,8 +24,9 @@ const CustomDataTable = ({
 
   useEffect(() => {
     const customColumns = schemaTable.map((columns) => ({
-      property: columns,
       header: <Text weight="bold">{columns}</Text>,
+      property: columns,
+      search: columns === 'Fecha' || columns === 'Ref' || columns === 'Detalle',
       align: 'center',
       primary: false,
     }));
@@ -34,21 +35,14 @@ const CustomDataTable = ({
       {
         pin: true,
         property: 'ACTIONS',
-
         align: 'center',
         render: () => (
-          <Box direction="row" gap="xsmall" justify="center">
+          <Box direction="row" gap="small" justify="center">
             {options.view && (
-              <Button
-                hoverIndicator
-                title="Ver"
-                icon={<View />}
-                onClick={onClickView}
-              />
+              <Button title="Ver" icon={<View />} onClick={onClickView} />
             )}
             {options.report && (
               <Button
-                hoverIndicator
                 title="Informe"
                 icon={<DocumentPdf />}
                 onClick={onClickReport}
@@ -56,15 +50,13 @@ const CustomDataTable = ({
             )}
             {options.edit && (
               <Button
-                hoverIndicator
                 title="Editar"
-                icon={<Edit />}
+                icon={<Edit color="status-information" />}
                 onClick={onClickEdit}
               />
             )}
             {options.delete && (
               <Button
-                hoverIndicator
                 title="Eliminar"
                 icon={<Trash color="status-error" />}
                 onClick={onClickDelete}
@@ -75,7 +67,7 @@ const CustomDataTable = ({
       },
     ];
     actions
-      ? setColumns(customActionsProps.concat(customColumns))
+      ? setColumns(customColumns.concat(customActionsProps))
       : setColumns(customColumns);
   }, [data]);
 

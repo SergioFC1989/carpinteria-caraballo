@@ -1,8 +1,8 @@
 import { Box, Button, Heading } from 'grommet';
 import { Search } from 'grommet-icons';
 import Form from '../../../common/components/Form';
-import { schemaFormClient } from '../propTypes/prop-types';
-import useForm from '../hooks/useForm';
+import { schemaFormClient } from '../prop-types';
+import useForm from '../useForm';
 
 const FormClient = () => {
   const { addDataFormClient, isFormDetails, isFormDocument } = useForm();
@@ -26,7 +26,6 @@ const FormClient = () => {
           disabledButton
           schema={schemaFormClient}
           onClickSubmit={(data) => {
-            console.log(data);
             addDataFormClient(data);
             return isFormDetails();
           }}

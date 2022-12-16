@@ -1,8 +1,8 @@
 import { Box, Button, Text } from 'grommet';
 import { CircleInformation } from 'grommet-icons';
 import Form from '../../../common/components/Form';
-import useForm from '../hooks/useForm';
-import { schemaFormDetails } from '../propTypes/prop-types';
+import useForm from '../useForm';
+import { schemaFormDetails } from '../prop-types';
 
 const FormClient = () => {
   const { isFormDocument, handleForm } = useForm();

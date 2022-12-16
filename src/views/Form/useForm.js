@@ -1,22 +1,24 @@
 import { useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-import queryFirestoreAPI from '../../../api/query/firebase-query';
-import useCommon from '../../../common/hooks/useCommon';
+import queryFirestoreAPI from '../../api/query/firebase-query';
+import useCommon from '../../common/hooks/useCommon';
 
 import {
   stateFetchAPI,
-  stateHeaderDefault,
   stateFormDocument,
-  stateVisibilityForm,
   stateFormClient,
-} from '../../../common/context/common-context';
+  stateHeaderDefault,
+  stateRefDoc,
+  stateVisibilityForm,
+} from '../../common/context/common-context';
 
-const useDocumentForm = () => {
+const useForm = () => {
   const { handleCommon, handleErrors, navigate } = useCommon();
   const [itemDocumentForm, setItemDocumentForm] = useState([]);
-  const [refDoc, setRefDoc] = useState(1);
+  const [refDoc, setRefDoc] = useRecoilState(stateRefDoc);
   const [date, setDate] = useState(new Date().toISOString());
+  const [isModalRef, setIsModalRef] = useState(false);
   const optionsHeader = useRecoilValue(stateHeaderDefault);
   const [, setVisibilityForm] = useRecoilState(stateVisibilityForm);
   const [datum, setDatum] = useRecoilState(stateFetchAPI);
@@ -26,8 +28,13 @@ const useDocumentForm = () => {
   );
 
   const lastRef = (value = []) => {
-    const ref = value.map((elem) => elem?.Ref);
-    setRefDoc(Math.max(...ref) + 1);
+    refDoc === 0 && setRefDoc(1);
+    value.length > 0 &&
+      (() => {
+        const ref = value.map((elem) => elem?.Ref);
+        console.log(ref);
+        setRefDoc(Math.max(...ref) + 1);
+      })();
   };
 
   const fetchAPI = async () => {
@@ -36,7 +43,7 @@ const useDocumentForm = () => {
       const fetchData = await queryFirestoreAPI.GET.DOCUMENTS(
         optionsHeader.title.toLocaleLowerCase()
       );
-      fetchData.length > 0 && lastRef(fetchData);
+      lastRef(fetchData);
       setDatum(fetchData);
       return handleCommon.show({ loading: false });
     } catch (error) {
@@ -92,12 +99,19 @@ const useDocumentForm = () => {
   const handleForm = async (data) => {
     try {
       handleCommon.show({ loading: true });
+      const total = Number(calculateTotalDocument().toFixed(2));
       const formDocument = [
         {
+          Tipo: optionsHeader.title,
           Ref: refDoc,
-          Fecha: date,
+          Fecha: new Date(date).toLocaleDateString('es-ES', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric',
+          }),
           Documento: dataFormDocument,
-          Total: calculateTotalDocument().toFixed(2),
+          Total: total,
+          Neto: total - (data.IVA / 100) * total,
           Cliente: dataFormClient,
           ...data,
         },
@@ -106,28 +120,38 @@ const useDocumentForm = () => {
         optionsHeader.title.toLocaleLowerCase(),
         formDocument
       );
-      handleCommon.show({ loading: false });
-      handleCommon.notification({
-        title: 'Enhorabuena',
-        message: 'Los datos se registraron correctamente',
-        status: 'normal',
-        visible: true,
-      });
       setDatum((prev) => [...prev, ...formDocument]);
       setDataFormDocument([]);
       setDataFormClient([]);
-      return isFormDocument();
+      isFormDocument();
+      setRefDoc(refDoc + 1);
+      handleCommon.show({ loading: false });
+      return handleCommon.notification(
+        'Enhorabuena',
+        'Los datos se registraron correctamente',
+        'normal',
+        true
+      );
     } catch (error) {
       handleCommon.show({ loading: false });
       return handleErrors(error);
     }
   };
 
+  const handleRefDoc = (value) => {
+    setRefDoc(value?.Referencia);
+    setIsModalRef(false);
+  };
+
   useEffect(() => {
     console.log(datum);
     optionsHeader?.title === 'Bienvenid@!!' && navigate('/dashboard');
-    datum.length <= 0 ? fetchAPI() : lastRef(datum);
+    datum.length <= 0 && fetchAPI();
   }, []);
+
+  useEffect(() => {
+    isModalRef && setIsModalRef(false);
+  }, [refDoc]);
 
   return {
     datum,
@@ -135,6 +159,9 @@ const useDocumentForm = () => {
     dataFormDocument,
     itemDocumentForm,
     date,
+    isModalRef,
+    setIsModalRef,
+    setRefDoc,
     addItemInTable,
     clearTableDocument,
     selectItemInTable,
@@ -146,7 +173,8 @@ const useDocumentForm = () => {
     isFormDetails,
     addDataFormClient,
     handleForm,
+    handleRefDoc,
   };
 };
 
-export default useDocumentForm;
+export default useForm;

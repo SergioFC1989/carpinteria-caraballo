@@ -25,6 +25,10 @@ export const schemaFormDetails = [
   },
 ];
 
+export const schemaFormRefDoc = [
+  { field: 'Referencia', key: 'Referencia', type: 'number', width: 'medium' },
+];
+
 export const schemaColumnsClient = [
   'Nombre',
   'DNI',

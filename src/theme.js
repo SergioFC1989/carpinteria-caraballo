@@ -14,6 +14,9 @@ const CustomTheme = deepMerge(grommet, {
       'status-error': '#DF5539',
       'status-information': '#69BCDE',
     },
+    input: {
+      padding: '10em',
+    },
     breakpoints: {
       small: {
         value: 360,
@@ -96,6 +99,11 @@ const CustomTheme = deepMerge(grommet, {
       radius: '0',
     },
     size: '1.05em',
+  },
+  dataTable: {
+    header: {
+      gap: '0.5em',
+    },
   },
   heading: {
     responsiveBreakpoint: 'medium',
@@ -180,6 +188,14 @@ const CustomTheme = deepMerge(grommet, {
         font-weight: normal;
 
       `,
+    },
+  },
+  notification: {
+    toast: {
+      container: {
+        width: 'large',
+        elevation: 'large',
+      },
     },
   },
   pagination: {
