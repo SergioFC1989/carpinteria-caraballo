@@ -2,20 +2,23 @@ import { useRecoilState } from 'recoil';
 import { Box, Button, Header, Heading, Text } from 'grommet';
 import { Group, Document, Note, Power } from 'grommet-icons';
 import { onAuthSignOut } from '../../api/auth/firebase-auth';
-import {
-  stateFetchAPI,
-  stateFormDocument,
-  stateHeaderDefault,
-} from '../context/common-context';
+import { stateFetchDatum, stateFormDocument } from '../context/common-context';
 import useForm from '../../views/Form/useForm';
 import useCommon from '../hooks/useCommon';
 import Question from './Question';
 
+import File from './File';
+
 const Main = ({ children }) => {
-  const { navigate, handleCommon, isShow } = useCommon();
+  const {
+    navigate,
+    handleCommon,
+    isShow,
+    optionsHeader,
+    setOptionsHeader,
+  } = useCommon();
   const { setRefDoc } = useForm();
-  const [optionsHeader, setOptionsHeader] = useRecoilState(stateHeaderDefault);
-  const [, setDatum] = useRecoilState(stateFetchAPI);
+  const [, setDatum] = useRecoilState(stateFetchDatum);
   const [, setDataFormDocument] = useRecoilState(stateFormDocument);
 
   return (
@@ -96,6 +99,8 @@ const Main = ({ children }) => {
             label="Salir"
             onClick={() => handleCommon.show({ question: true })}
           />
+          <File />
+          <Button primary label="Xlsx" onClick={() => {}} />
         </Box>
       </Header>
       <Box fill="horizontal" align="center">

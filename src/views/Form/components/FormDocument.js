@@ -25,6 +25,7 @@ const FormDocument = () => {
     deleteItemInTable,
     calculateTotalDocument,
     onChangeDate,
+    handleRefDoc,
   } = useForm();
 
   return (
@@ -39,7 +40,13 @@ const FormDocument = () => {
           }}
         />
       )}
-      {isModalRef && <ModalRef onClickOutside={() => setIsModalRef(false)} />}
+      {isModalRef && (
+        <ModalRef
+          onSubmit={handleRefDoc}
+          onClickOutside={() => setIsModalRef(false)}
+          onEsc={() => setIsModalRef(false)}
+        />
+      )}
       <Box width="xlarge" pad="small" gap="medium" animation="fadeIn">
         <Box
           direction="row"

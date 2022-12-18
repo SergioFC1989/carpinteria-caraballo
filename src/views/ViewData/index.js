@@ -1,11 +1,11 @@
 import { useRecoilState } from 'recoil';
 import { Box } from 'grommet';
-import { stateFetchAPI } from '../../common/context/common-context';
+import { stateFetchDatum } from '../../common/context/common-context';
 import CustomDataTable from '../../common/components/CustomDataTable';
 import schemaColumnsData from './prop-types';
 
 const TableDocument = () => {
-  const [datum] = useRecoilState(stateFetchAPI);
+  const [datum] = useRecoilState(stateFetchDatum);
   return (
     <Box width="large" pad="small" gap="medium" animation="fadeIn">
       <CustomDataTable

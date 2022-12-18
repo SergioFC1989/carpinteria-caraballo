@@ -33,8 +33,13 @@ export const stateHeaderDefault = atom({
   },
 });
 
-export const stateFetchAPI = atom({
-  key: 'stateFetchAPI',
+export const stateFetchDatum = atom({
+  key: 'stateFetchDatum',
+  default: [],
+});
+
+export const stateFetchClients = atom({
+  key: 'stateFetchClients',
   default: [],
 });
 

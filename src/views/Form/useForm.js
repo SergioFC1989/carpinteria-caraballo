@@ -1,27 +1,34 @@
 import { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
-
+import { useRecoilState } from 'recoil';
+import { nanoid } from 'nanoid';
 import queryFirestoreAPI from '../../api/query/firebase-query';
 import useCommon from '../../common/hooks/useCommon';
 
 import {
-  stateFetchAPI,
+  stateFetchDatum,
   stateFormDocument,
   stateFormClient,
-  stateHeaderDefault,
   stateRefDoc,
   stateVisibilityForm,
+  stateFetchClients,
 } from '../../common/context/common-context';
 
 const useForm = () => {
-  const { handleCommon, handleErrors, navigate } = useCommon();
+  const {
+    handleCommon,
+    handleErrors,
+    navigate,
+    fetchDatum,
+    fetchClients,
+    optionsHeader,
+  } = useCommon();
   const [itemDocumentForm, setItemDocumentForm] = useState([]);
-  const [refDoc, setRefDoc] = useRecoilState(stateRefDoc);
   const [date, setDate] = useState(new Date().toISOString());
   const [isModalRef, setIsModalRef] = useState(false);
-  const optionsHeader = useRecoilValue(stateHeaderDefault);
+  const [refDoc, setRefDoc] = useRecoilState(stateRefDoc);
   const [, setVisibilityForm] = useRecoilState(stateVisibilityForm);
-  const [datum, setDatum] = useRecoilState(stateFetchAPI);
+  const [datum, setDatum] = useRecoilState(stateFetchDatum);
+  const [clients, setClients] = useRecoilState(stateFetchClients);
   const [dataFormClient, setDataFormClient] = useRecoilState(stateFormClient);
   const [dataFormDocument, setDataFormDocument] = useRecoilState(
     stateFormDocument
@@ -36,14 +43,14 @@ const useForm = () => {
       })();
   };
 
-  const fetchAPI = async () => {
+  const handleInitializeForm = async () => {
     try {
       handleCommon.show({ loading: true });
-      const fetchData = await queryFirestoreAPI.GET.DOCUMENTS(
-        optionsHeader.title.toLocaleLowerCase()
-      );
-      lastRef(fetchData);
-      setDatum(fetchData);
+      const getDatum = await fetchDatum();
+      const getClients = await fetchClients();
+      lastRef(getDatum);
+      setDatum(getDatum);
+      setClients(getClients);
       return handleCommon.show({ loading: false });
     } catch (error) {
       handleCommon.show({ loading: false });
@@ -101,6 +108,7 @@ const useForm = () => {
       const total = Number(calculateTotalDocument().toFixed(2));
       const formDocument = [
         {
+          Id: nanoid(),
           Tipo: optionsHeader.title,
           Ref: refDoc,
           Fecha: new Date(date).toLocaleDateString('es-ES', {
@@ -144,7 +152,7 @@ const useForm = () => {
 
   useEffect(() => {
     optionsHeader?.title === 'Bienvenid@!!' && navigate('/dashboard');
-    datum.length <= 0 && fetchAPI();
+    datum.length <= 0 && handleInitializeForm();
   }, []);
 
   useEffect(() => {
@@ -153,6 +161,7 @@ const useForm = () => {
 
   return {
     datum,
+    clients,
     refDoc,
     dataFormDocument,
     itemDocumentForm,

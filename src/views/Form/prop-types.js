@@ -25,8 +25,12 @@ export const schemaFormDetails = [
   },
 ];
 
-export const schemaFormRefDoc = [
+export const schemaModalRefDoc = [
   { field: 'Referencia', key: 'Referencia', type: 'number', width: 'medium' },
+];
+
+export const schemaModalClients = [
+  { field: 'Cliente', key: 'Cliente', type: 'select-search', width: 'medium' },
 ];
 
 export const schemaColumnsClient = [
