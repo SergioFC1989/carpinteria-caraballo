@@ -40,7 +40,7 @@ const useCommon = () => {
   const fetchDatum = () =>
     queryFirestoreAPI.GET.DOCUMENTS(optionsHeader.title.toLocaleLowerCase());
 
-  const fetchClients = () => queryFirestoreAPI.GET.DOCUMENTS('clients');
+  const fetchClients = () => queryFirestoreAPI.GET.DOCUMENTS('clientes');
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => user === null && navigate('/login'));

@@ -84,7 +84,11 @@ const Form = ({
           name={props.name}
           control={control}
           render={({ field }) => (
-            <FieldSelectSearch {...field} options={options} />
+            <FieldSelectSearch
+              emptySearchMessage="No hay resultados..."
+              {...field}
+              options={options}
+            />
           )}
         />
       ),

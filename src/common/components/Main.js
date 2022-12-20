@@ -7,8 +7,6 @@ import useForm from '../../views/Form/useForm';
 import useCommon from '../hooks/useCommon';
 import Question from './Question';
 
-import File from './File';
-
 const Main = ({ children }) => {
   const {
     navigate,
@@ -99,8 +97,6 @@ const Main = ({ children }) => {
             label="Salir"
             onClick={() => handleCommon.show({ question: true })}
           />
-          <File />
-          <Button primary label="Xlsx" onClick={() => {}} />
         </Box>
       </Header>
       <Box fill="horizontal" align="center">

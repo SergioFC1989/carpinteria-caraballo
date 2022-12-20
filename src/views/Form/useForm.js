@@ -100,8 +100,6 @@ const useForm = () => {
   const isFormDetails = () =>
     setVisibilityForm({ document: false, client: false, details: true });
 
-  const addDataFormClient = (datum) => setDataFormClient(datum);
-
   const handleForm = async (data) => {
     try {
       handleCommon.show({ loading: true });
@@ -178,7 +176,7 @@ const useForm = () => {
     isFormDocument,
     isFormClient,
     isFormDetails,
-    addDataFormClient,
+    setDataFormClient,
     handleForm,
     handleRefDoc,
   };
