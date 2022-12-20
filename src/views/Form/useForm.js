@@ -116,7 +116,7 @@ const useForm = () => {
           }),
           Documento: dataFormDocument,
           Total: total,
-          Neto: total - (data.IVA / 100) * total,
+          Neto: (total - (data.IVA / 100) * total).toFixed(2),
           Cliente: dataFormClient,
           ...data,
         },
