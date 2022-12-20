@@ -5,6 +5,7 @@ import Main from '../../common/components/Main';
 import FormDocument from '../Form/components/FormDocument';
 import FormClient from '../Form/components/FormClient';
 import FormDetails from '../Form/components/FormDetails';
+import ViewData from '../ViewData/index';
 
 import { stateVisibilityForm } from '../../common/context/common-context';
 
@@ -19,7 +20,9 @@ const Bill = () => {
           {visible.details && <FormDetails />}
         </Tab>
         <Tab title="Visualizar">
-          <Box pad="medium">Ver</Box>
+          <Box pad="medium">
+            <ViewData />
+          </Box>
         </Tab>
       </Tabs>
     </Main>

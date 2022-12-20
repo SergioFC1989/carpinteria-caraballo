@@ -101,8 +101,8 @@ const useForm = () => {
     setVisibilityForm({ document: false, client: false, details: true });
 
   const handleForm = async (data) => {
+    handleCommon.show({ loading: true });
     try {
-      handleCommon.show({ loading: true });
       const total = Number(calculateTotalDocument().toFixed(2));
       const formDocument = [
         {
@@ -117,7 +117,7 @@ const useForm = () => {
           Documento: dataFormDocument,
           Total: total,
           Neto: total - (data.IVA / 100) * total,
-          Cliente: dataFormClient?.data,
+          Cliente: dataFormClient,
           ...data,
         },
       ];
@@ -127,7 +127,7 @@ const useForm = () => {
       );
       setDatum((prev) => [...prev, ...formDocument]);
       setDataFormDocument([]);
-      delete dataFormClient?.client;
+      setDataFormClient({});
       isFormDocument();
       setRefDoc(refDoc + 1);
       handleCommon.show({ loading: false });

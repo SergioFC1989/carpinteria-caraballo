@@ -5,9 +5,9 @@ import Main from '../../common/components/Main';
 import FormDocument from '../Form/components/FormDocument';
 import FormClient from '../Form/components/FormClient';
 import FormDetails from '../Form/components/FormDetails';
+import ViewData from '../ViewData/index';
 
 import { stateVisibilityForm } from '../../common/context/common-context';
-import ViewData from '../ViewData/index';
 
 const Bill = () => {
   const visible = useRecoilValue(stateVisibilityForm);

@@ -23,7 +23,7 @@ module.exports = {
     'no-console': 'off',
     'linebreak-style': 0,
     'no-shadow': 0,
-    'no-unused-expressions': 0,
+    'no-unused-expressions': 'off',
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'react/jsx-props-no-spreading': 0,
     'react/forbid-prop-types': 0,

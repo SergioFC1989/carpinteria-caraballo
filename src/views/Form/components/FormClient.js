@@ -1,8 +1,10 @@
+import { useEffect } from 'react';
 import { nanoid } from 'nanoid';
-import { Box, Button, Heading } from 'grommet';
+import { Box, Button, Heading, Tag } from 'grommet';
 import { Search } from 'grommet-icons';
 
 import Form from '../../../common/components/Form';
+import Question from '../../../common/components/Question';
 import ModalClient from './ModalClient';
 
 import { schemaFormClient } from '../prop-types';
@@ -14,14 +16,37 @@ const FormClient = () => {
   const { isShow, handleCommon } = useCommon();
   const {
     dataFormClient,
+    clients,
     setDataFormClient,
     isFormDetails,
     isFormDocument,
-    clients,
   } = useForm();
+
+  useEffect(() => {
+    Object.keys(dataFormClient).length > 0 &&
+      handleCommon.show({ question: true });
+    return () => {
+      handleCommon.show({ clients: false, question: false });
+    };
+  }, []);
 
   return (
     <>
+      {isShow.question && (
+        <Question
+          message="Actualmente tiene un cliente seleccionado. ¿Desea continuar?"
+          onCancel={() => {
+            handleCommon.show({ question: false });
+            setDataFormClient({});
+          }}
+          onSubmit={() => {
+            handleCommon.show({ question: false });
+            return isFormDetails();
+          }}
+        >
+          <Tag size="small" value={dataFormClient.Nombre} />
+        </Question>
+      )}
       {isShow.clients && (
         <ModalClient
           onEsc={() => {
@@ -79,6 +104,7 @@ const FormClient = () => {
                 ...data,
               };
               setDataFormClient(addIdClient);
+              handleCommon.show({ clients: false });
               return isFormDetails();
             }}
           >

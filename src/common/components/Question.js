@@ -1,9 +1,12 @@
 import { Box, Button, Layer, Text } from 'grommet';
 
-const Question = ({ message, onCancel, onSubmit, ...props }) => (
+const Question = ({ message, onCancel, onSubmit, children, ...props }) => (
   <Layer {...props}>
     <Box pad="small" gap="small" align="center">
-      <Text weight="bold">{message}</Text>
+      <Text textAlign="center" weight="bold" margin="none">
+        {message}
+      </Text>
+      {children}
       <Box direction="row" gap="small">
         <Box width="small">
           <Button secondary fill label="Cancelar" onClick={onCancel} />

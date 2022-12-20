@@ -4,10 +4,10 @@ import { Select } from 'grommet';
 
 import Field from './Field';
 
-const FieldSelectSearch = ({ label, options, ...props }) => {
+const FieldSelectSearch = ({ label, options, width, ...props }) => {
   const [list, setList] = useState(options);
   return (
-    <Field width="medium" label={label}>
+    <Field width={width} label={label}>
       <Select
         onSearch={(text) => {
           const escapedText = text.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&');
@@ -26,11 +26,13 @@ const FieldSelectSearch = ({ label, options, ...props }) => {
 FieldSelectSearch.propTypes = {
   label: PropTypes.string,
   options: PropTypes.array,
+  width: PropTypes.string,
 };
 
 FieldSelectSearch.defaultProps = {
   label: '',
   options: [],
+  width: 'medium',
 };
 
 export default FieldSelectSearch;
