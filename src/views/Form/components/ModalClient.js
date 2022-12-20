@@ -9,7 +9,7 @@ const ModalClient = ({
   ...props
 }) => (
   <Layer onClickOutside={onClickOutside} onEsc={onEsc}>
-    <Box pad="small" gap="small">
+    <Box pad="small" gap="medium">
       <FieldSelectSearch label="Cliente" {...props} />
       {isButton && <Button primary label="Aceptar" onClick={onClick} />}
     </Box>

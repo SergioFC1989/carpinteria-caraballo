@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { nanoid } from 'nanoid';
 import { Box, Button, Heading } from 'grommet';
 import { Search } from 'grommet-icons';
 
@@ -13,25 +13,33 @@ import useCommon from '../../../common/hooks/useCommon';
 const FormClient = () => {
   const { isShow, handleCommon } = useCommon();
   const {
+    dataFormClient,
     setDataFormClient,
     isFormDetails,
     isFormDocument,
     clients,
   } = useForm();
-  const [client, setClient] = useState({});
-  const addDataFormClientAPI = () => {};
-  console.log(clients);
+
   return (
     <>
       {isShow.clients && (
         <ModalClient
-          onEsc={() => handleCommon.show({ clients: false })}
-          onClickOutside={() => handleCommon.show({ clients: false })}
-          onClick={addDataFormClientAPI}
-          value={client}
-          isButton={client}
+          onEsc={() => {
+            setDataFormClient({});
+            return handleCommon.show({ clients: false });
+          }}
+          onClickOutside={() => {
+            setDataFormClient({});
+            return handleCommon.show({ clients: false });
+          }}
+          onClick={() => isFormDetails()}
+          value={dataFormClient.Nombre}
+          isButton={dataFormClient.Nombre}
           options={clients.map((elem) => elem.Nombre)}
-          onChange={({ option }) => setClient(option)}
+          onChange={({ option }) => {
+            const foundClient = clients.find((cl) => cl.Nombre === option);
+            setDataFormClient(foundClient);
+          }}
         />
       )}
       <Box fill="horizontal" gap="small" pad="small" animation="fadeIn">
@@ -66,7 +74,11 @@ const FormClient = () => {
             disabledButton
             schema={schemaFormClient}
             onClickSubmit={(data) => {
-              setDataFormClient(data);
+              const addIdClient = {
+                Id: nanoid(),
+                ...data,
+              };
+              setDataFormClient(addIdClient);
               return isFormDetails();
             }}
           >

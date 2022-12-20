@@ -117,7 +117,7 @@ const useForm = () => {
           Documento: dataFormDocument,
           Total: total,
           Neto: total - (data.IVA / 100) * total,
-          Cliente: dataFormClient,
+          Cliente: dataFormClient?.data,
           ...data,
         },
       ];
@@ -127,7 +127,7 @@ const useForm = () => {
       );
       setDatum((prev) => [...prev, ...formDocument]);
       setDataFormDocument([]);
-      setDataFormClient([]);
+      delete dataFormClient?.client;
       isFormDocument();
       setRefDoc(refDoc + 1);
       handleCommon.show({ loading: false });
@@ -162,6 +162,7 @@ const useForm = () => {
     clients,
     refDoc,
     dataFormDocument,
+    dataFormClient,
     itemDocumentForm,
     date,
     isModalRef,
