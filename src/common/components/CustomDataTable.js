@@ -74,7 +74,7 @@ const CustomDataTable = ({
   return (
     <Box
       fill="horizontal"
-      height={{ min: 'auto', max: '46.8em' }}
+      height={{ min: 'auto', max: '30.8em' }}
       overflow="auto"
       border="all"
     >

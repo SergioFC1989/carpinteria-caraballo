@@ -23,7 +23,7 @@ const FormDocument = () => {
     clearTableDocument,
     selectItemInTable,
     deleteItemInTable,
-    calculateTotalDocument,
+    calculateTotal,
     onChangeDate,
     handleRefDoc,
   } = useForm();
@@ -53,7 +53,9 @@ const FormDocument = () => {
           pad="small"
           justify="between"
           round="medium"
+          gap="small"
           background="light-2"
+          wrap
         >
           <Box
             onClick={() => setIsModalRef(true)}
@@ -72,7 +74,7 @@ const FormDocument = () => {
           </Box>
           <Heading margin="none" level={2}>
             {dataFormDocument.length > 0
-              ? `Total: ${calculateTotalDocument().toFixed(2)} €`
+              ? `Total: ${calculateTotal(dataFormDocument).toFixed(2)} €`
               : 'Total: 0 €'}
           </Heading>
         </Box>

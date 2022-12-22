@@ -84,8 +84,8 @@ const useForm = () => {
     setDataFormDocument(deleteItem);
   };
 
-  const calculateTotalDocument = () => {
-    const totals = dataFormDocument.map((elem) => elem.Total);
+  const calculateTotal = (data) => {
+    const totals = data.map((elem) => elem?.Total);
     return totals.reduce((acc, val) => acc + val);
   };
 
@@ -103,7 +103,7 @@ const useForm = () => {
   const handleForm = async (data) => {
     handleCommon.show({ loading: true });
     try {
-      const total = Number(calculateTotalDocument().toFixed(2));
+      const total = Number(calculateTotal(dataFormDocument).toFixed(2));
       const formDocument = [
         {
           Id: nanoid(),
@@ -172,7 +172,7 @@ const useForm = () => {
     clearTableDocument,
     selectItemInTable,
     deleteItemInTable,
-    calculateTotalDocument,
+    calculateTotal,
     onChangeDate,
     isFormDocument,
     isFormClient,
