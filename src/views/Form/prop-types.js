@@ -36,7 +36,7 @@ export const schemaModalClients = [
 export const schemaColumnsClient = [
   'Nombre',
   'DNI',
-  'Direccion',
+  'Teléfono',
   'Localidad',
-  'Telefono',
+  'Direccion',
 ];

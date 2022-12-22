@@ -9,6 +9,7 @@ const FieldSelectSearch = ({ label, options, width, ...props }) => {
   return (
     <Field width={width} label={label}>
       <Select
+        multiple={false}
         onSearch={(text) => {
           const escapedText = text.replace(/[-\\^$*+?.()|[\]{}]/g, '\\$&');
           const exp = new RegExp(escapedText, 'i');

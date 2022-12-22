@@ -5,7 +5,7 @@ import useForm from '../useForm';
 import { schemaFormDetails } from '../prop-types';
 
 const FormClient = () => {
-  const { isFormDocument, handleForm } = useForm();
+  const { isFormClient, handleForm } = useForm();
   return (
     <Box
       fill="horizontal"
@@ -27,7 +27,7 @@ const FormClient = () => {
           onClickSubmit={(data) => handleForm(data)}
         >
           <Box width="medium" alignSelf="center" gap="small">
-            <Button secondary label="Cancelar" onClick={isFormDocument} />
+            <Button secondary label="Cancelar" onClick={isFormClient} />
             <Button primary label="Siguiente" type="submit" />
           </Box>
         </Form>

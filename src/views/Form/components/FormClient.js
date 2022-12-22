@@ -59,7 +59,7 @@ const FormClient = () => {
           }}
           onClick={() => isFormDetails()}
           value={dataFormClient.Nombre}
-          isButton={dataFormClient.Nombre}
+          selectedClient={dataFormClient}
           options={clients.map((elem) => elem.Nombre)}
           onChange={({ option }) => {
             const foundClient = clients.find((cl) => cl.Nombre === option);
