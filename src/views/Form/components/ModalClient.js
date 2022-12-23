@@ -28,7 +28,6 @@ const ModalClient = ({
       );
   }, [selectedClient]);
 
-  console.log(client.sort((a, b) => a.key > b.key));
   return (
     <Layer
       onClickOutside={onClickOutside}
@@ -36,28 +35,30 @@ const ModalClient = ({
       position="right"
       full="vertical"
     >
-      <Box pad="medium" gap="medium">
+      <Box pad="medium" gap="small">
         <Heading level={2} margin="none">
           Buscar cliente
         </Heading>
         <FieldSelectSearch label="Cliente" {...props} />
-        <Box>
-          <NameValueList gap="small">
-            {schemaColumnsClient.map((col) =>
-              client.map(
-                (elem, key) =>
-                  col === elem.key && (
-                    <NameValuePair key={key.id} name={elem.key}>
-                      <Text margin="none" color="text-strong">
-                        {elem.value}
-                      </Text>
-                    </NameValuePair>
-                  )
-              )
-            )}
-          </NameValueList>
-        </Box>
-        <Box align="center">
+        {selectedClient.Nombre && (
+          <Box background="light-2" round="small" pad="small">
+            <NameValueList gap="small">
+              {schemaColumnsClient.map((col) =>
+                client.map(
+                  (elem, key) =>
+                    col === elem.key && (
+                      <NameValuePair key={key.id} name={elem.key}>
+                        <Text margin="none" color="text-strong">
+                          {elem.value}
+                        </Text>
+                      </NameValuePair>
+                    )
+                )
+              )}
+            </NameValueList>
+          </Box>
+        )}
+        <Box align="center" width="medium">
           <Button
             primary
             fill="horizontal"

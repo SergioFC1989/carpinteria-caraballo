@@ -110,7 +110,11 @@ const Form = ({
               <Field key={key?.id} label={props.field} width={props.width}>
                 {types[props.type](
                   {
-                    ...register(props.key, { max: props.max, required: true }),
+                    ...register(props.key, {
+                      value: props.default,
+                      max: props.max,
+                      required: true,
+                    }),
                   },
                   key,
                   props?.options

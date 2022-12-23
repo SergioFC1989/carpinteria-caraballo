@@ -22,6 +22,7 @@ export const schemaFormDetails = [
     type: 'number',
     width: 'medium',
     max: 21,
+    default: 21,
   },
 ];
 

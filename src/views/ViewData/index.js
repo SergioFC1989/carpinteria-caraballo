@@ -13,9 +13,9 @@ const TableDocument = () => {
   );
 
   return (
-    <Page kind="narrow" justify="center" pad="small">
+    <Page kind="full" justify="center" pad="small">
       <PageContent gap="small" align="center">
-        <Box width="large" pad="small" gap="medium" animation="fadeIn">
+        <Box pad="small" gap="medium" animation="fadeIn">
           <Box
             direction="row"
             pad="small"
@@ -32,6 +32,7 @@ const TableDocument = () => {
           </Box>
           <CustomDataTable
             actions
+            resizeable
             data={datum}
             schemaTable={schemaColumnsData}
             options={{

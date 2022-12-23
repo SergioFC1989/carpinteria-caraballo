@@ -27,7 +27,7 @@ const CustomDataTable = ({
       header: <Text weight="bold">{columns}</Text>,
       property: columns,
       search: columns === 'Fecha' || columns === 'Ref' || columns === 'Detalle',
-      align: 'center',
+      align: 'start',
       primary: false,
     }));
 
@@ -67,7 +67,7 @@ const CustomDataTable = ({
       },
     ];
     actions
-      ? setColumns(customColumns.concat(customActionsProps))
+      ? setColumns(customActionsProps.concat(customColumns))
       : setColumns(customColumns);
   }, [data]);
 

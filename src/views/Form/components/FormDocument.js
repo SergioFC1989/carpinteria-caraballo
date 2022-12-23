@@ -105,6 +105,7 @@ const FormDocument = () => {
           <Box animation="fadeIn" gap="medium">
             <CustomDataTable
               actions
+              resizable
               options={{
                 delete: true,
               }}
