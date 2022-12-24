@@ -42,7 +42,7 @@ const Main = ({ children }) => {
         fill="horizontal"
         direction="row"
         background="brand"
-        pad="small"
+        pad={size !== 'large' ? 'medium' : 'small'}
         border={{ side: 'bottom', color: 'text' }}
       >
         {size !== 'large' ? (
