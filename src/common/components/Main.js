@@ -1,13 +1,21 @@
-import { useRecoilState } from 'recoil';
-import { Box, Button, Header, Heading, Text } from 'grommet';
-import { Group, Document, Note, Power } from 'grommet-icons';
+import { useContext, useState } from 'react';
+import {
+  Box,
+  Button,
+  Collapsible,
+  Header,
+  Heading,
+  ResponsiveContext,
+  Text,
+} from 'grommet';
+import { Group, Document, Note, Power, Menu, FormDown } from 'grommet-icons';
 import { onAuthSignOut } from '../../api/auth/firebase-auth';
-import { stateFetchDatum, stateFormDocument } from '../context/common-context';
 import useForm from '../../views/Form/useForm';
 import useCommon from '../hooks/useCommon';
 import Question from './Question';
 
 const Main = ({ children }) => {
+  const size = useContext(ResponsiveContext);
   const {
     navigate,
     handleCommon,
@@ -15,9 +23,8 @@ const Main = ({ children }) => {
     optionsHeader,
     setOptionsHeader,
   } = useCommon();
-  const { setRefDoc } = useForm();
-  const [, setDatum] = useRecoilState(stateFetchDatum);
-  const [, setDataFormDocument] = useRecoilState(stateFormDocument);
+  const { setDataFormDocument, setDatum, setRefDoc } = useForm();
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -33,71 +40,163 @@ const Main = ({ children }) => {
       )}
       <Header
         fill="horizontal"
-        background="#FFFFFFFF"
+        direction="row"
+        background="brand"
         pad="small"
-        border={{ side: 'bottom', color: 'brand' }}
+        border={{ side: 'bottom', color: 'text' }}
+        margin={{ bottom: 'small' }}
       >
-        <Button
-          size="large"
-          label="Carpinteria - Juan Antonio Caraballo"
-          onClick={() => {
-            setOptionsHeader({
-              title: 'Bienvenid@!!',
-              message: 'La app mas rápida y cómoda',
-            });
-            setDatum([]);
-            setDataFormDocument([]);
-            setRefDoc(0);
-            navigate('/dashboard');
-          }}
-        />
-        <Box direction="row" gap="medium">
-          <Button
-            icon={<Document size="small" color="medium-grey" />}
-            label="Presupuestos"
-            onClick={() => {
-              setOptionsHeader({
-                title: 'Presupuestos',
-                message:
-                  'Crea un nuevo presupuesto, o visualize y edite un documento existente',
-              });
-              setDatum([]);
-              setDataFormDocument([]);
-              setRefDoc(0);
-              navigate('/dashboard/budget');
-            }}
-          />
-          <Button
-            icon={<Note size="small" color="medium-grey" />}
-            label="Facturas"
-            onClick={() => {
-              setOptionsHeader({
-                title: 'Facturas',
-                message:
-                  'Crea una nueva factura, o visualize y edite un documento existente',
-              });
-              setDatum([]);
-              setDataFormDocument([]);
-              setRefDoc(0);
-              navigate('/dashboard/bill');
-            }}
-          />
-          <Button
-            icon={<Group size="small" color="medium-grey" />}
-            label="Clientes"
-            onClick={() => {
-              setDatum([]);
-              setDataFormDocument([]);
-              setRefDoc(0);
-              navigate('/dashboard/clients');
-            }}
-          />
-          <Button
-            icon={<Power size="small" color="status-error" />}
-            label="Salir"
-            onClick={() => handleCommon.show({ question: true })}
-          />
-        </Box>
+        {size !== 'large' ? (
+          <Box>
+            <Button
+              icon={open ? <FormDown /> : <Menu />}
+              onClick={() => setOpen(!open)}
+              label={
+                <Heading margin="none" level={3} color="white">
+                  app-Carpinteria
+                </Heading>
+              }
+            />
+            <Box>
+              <Collapsible open={open}>
+                <Box
+                  align="start"
+                  gap="small"
+                  margin={{ vertical: 'medium' }}
+                  animation="slideDown"
+                >
+                  <Button
+                    icon={<Document size="small" color="text" />}
+                    label="Presupuestos"
+                    onClick={() => {
+                      if (optionsHeader?.title !== 'Presupuestos') {
+                        setOptionsHeader({
+                          title: 'Presupuestos',
+                          message:
+                            'Crea un nuevo presupuesto, o visualize y edite un documento existente',
+                        });
+                        setDatum([]);
+                        setDataFormDocument([]);
+                        setRefDoc(0);
+                        navigate('/dashboard/budget');
+                      }
+                    }}
+                  />
+                  <Button
+                    icon={<Note size="small" color="text" />}
+                    label="Facturas"
+                    onClick={() => {
+                      if (optionsHeader?.title !== 'Facturas') {
+                        setOptionsHeader({
+                          title: 'Facturas',
+                          message:
+                            'Crea una nueva factura, o visualize y edite un documento existente',
+                        });
+                        setDatum([]);
+                        setDataFormDocument([]);
+                        setRefDoc(0);
+                        navigate('/dashboard/bill');
+                      }
+                    }}
+                  />
+                  <Button
+                    icon={<Group size="small" color="text" />}
+                    label="Clientes"
+                    onClick={() => {
+                      if (optionsHeader?.title !== 'Clientes') {
+                        setDatum([]);
+                        setDataFormDocument([]);
+                        setRefDoc(0);
+                        navigate('/dashboard/clients');
+                      }
+                    }}
+                  />
+                  <Button
+                    icon={<Power size="small" color="status-error" />}
+                    label="Salir"
+                    onClick={() => handleCommon.show({ question: true })}
+                  />
+                </Box>
+              </Collapsible>
+            </Box>
+          </Box>
+        ) : (
+          <>
+            <Button
+              primary
+              label={
+                <Heading margin="none" level={3}>
+                  app-Carpinteria
+                </Heading>
+              }
+              onClick={() => {
+                setOptionsHeader({
+                  title: 'Bienvenid@!!',
+                  message: 'La app mas rápida y cómoda',
+                });
+                setDatum([]);
+                setDataFormDocument([]);
+                setRefDoc(0);
+                navigate('/dashboard');
+              }}
+            />
+            <Box direction="row" gap="medium">
+              <Button
+                icon={<Document size="medium" color="text" />}
+                label="Presupuestos"
+                onClick={() => {
+                  if (optionsHeader?.title !== 'Presupuestos') {
+                    setOptionsHeader({
+                      title: 'Presupuestos',
+                      message:
+                        'Crea un nuevo presupuesto, o visualize y edite un documento existente',
+                    });
+                    setDatum([]);
+                    setDataFormDocument([]);
+                    setRefDoc(0);
+                    navigate('/dashboard/budget');
+                  }
+                }}
+              />
+              <Button
+                icon={<Note size="medium" color="text" />}
+                label="Facturas"
+                onClick={() => {
+                  if (optionsHeader?.title !== 'Facturas') {
+                    setOptionsHeader({
+                      title: 'Facturas',
+                      message:
+                        'Crea una nueva factura, o visualize y edite un documento existente',
+                    });
+                    setDatum([]);
+                    setDataFormDocument([]);
+                    setRefDoc(0);
+                    navigate('/dashboard/bill');
+                  }
+                }}
+              />
+              <Button
+                icon={<Group size="medium" color="text" />}
+                label="Clientes"
+                onClick={() => {
+                  if (optionsHeader?.title !== 'Clientes') {
+                    setDatum([]);
+                    setDataFormDocument([]);
+                    setRefDoc(0);
+                    navigate('/dashboard/clients');
+                  }
+                }}
+              />
+              <Button
+                secondary
+                size="small"
+                icon={<Power size="small" color="status-error" />}
+                label="Salir"
+                onClick={() => handleCommon.show({ question: true })}
+              />
+            </Box>
+          </>
+        )}
       </Header>
       <Box fill="horizontal" align="center">
         <Box pad="small">
@@ -113,7 +212,7 @@ const Main = ({ children }) => {
             - {optionsHeader?.message} -
           </Text>
         </Box>
-        {children}
+        <Box align="center">{children}</Box>
       </Box>
     </>
   );

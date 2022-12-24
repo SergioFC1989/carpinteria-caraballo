@@ -103,7 +103,7 @@ const Form = ({
 
   return (
     <GForm onSubmit={handleSubmit(onSubmit)}>
-      <Box width={width} gap="medium" {...props}>
+      <Box gap="medium" wrap {...props}>
         <Box fill="horizontal" gap="small" direction={direction}>
           {schema.map((props, key) => (
             <Box key={key.id}>
@@ -154,7 +154,6 @@ const propTypes = {
 const defaultProps = {
   disabledButton: false,
   schema: [{ field: '', key: '', type: '', options: [] }],
-  width: 'medium',
   direction: 'column',
 };
 

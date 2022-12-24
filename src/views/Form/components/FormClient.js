@@ -67,7 +67,7 @@ const FormClient = () => {
           }}
         />
       )}
-      <Box fill="horizontal" gap="small" pad="small" animation="fadeIn">
+      <Box width="xlarge" pad="small" gap="medium" animation="fadeIn">
         <Box
           direction="row"
           pad="small"
@@ -94,7 +94,7 @@ const FormClient = () => {
             }}
           />
         </Box>
-        <Box pad="small">
+        <Box pad="small" gap="small" background="light-1" round="medium">
           <Form
             disabledButton
             schema={schemaFormClient}
@@ -108,9 +108,14 @@ const FormClient = () => {
               return isFormDetails();
             }}
           >
-            <Box width="medium" alignSelf="center" gap="small">
-              <Button secondary label="Cancelar" onClick={isFormDocument} />
-              <Button primary label="Siguiente" type="submit" />
+            <Box gap="small" width="medium" alignSelf="center">
+              <Button
+                fill
+                secondary
+                label="Cancelar"
+                onClick={isFormDocument}
+              />
+              <Button fill primary label="Siguiente" type="submit" />
             </Box>
           </Form>
         </Box>

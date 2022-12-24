@@ -177,7 +177,9 @@ const useForm = () => {
     isFormDocument,
     isFormClient,
     isFormDetails,
+    setDataFormDocument,
     setDataFormClient,
+    setDatum,
     handleForm,
     handleRefDoc,
   };

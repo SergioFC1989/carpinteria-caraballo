@@ -19,7 +19,7 @@ const CustomTheme = deepMerge(grommet, {
     },
     breakpoints: {
       small: {
-        value: 360,
+        value: 400,
         edgeSize: {
           small: '0.4em',
           medium: '0.8em',
@@ -156,7 +156,7 @@ const CustomTheme = deepMerge(grommet, {
         color: 'brand',
       },
       border: {
-        radius: '1em',
+        radius: '0.8em',
       },
       extend: `
         font-size: 1.53em;
@@ -170,7 +170,7 @@ const CustomTheme = deepMerge(grommet, {
         color: '#000000',
       },
       border: {
-        radius: '1em',
+        radius: '0.8em',
       },
       padding: {
         // vertical: '1em'

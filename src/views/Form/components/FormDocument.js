@@ -1,4 +1,12 @@
-import { Box, Button, DateInput, Heading, Text } from 'grommet';
+import { useContext } from 'react';
+import {
+  Box,
+  Button,
+  DateInput,
+  Heading,
+  ResponsiveContext,
+  Text,
+} from 'grommet';
 import { AddCircle, CircleInformation, Erase } from 'grommet-icons';
 
 import CustomDataTable from '../../../common/components/CustomDataTable';
@@ -11,6 +19,7 @@ import useForm from '../useForm';
 import useCommon from '../../../common/hooks/useCommon';
 
 const FormDocument = () => {
+  const size = useContext(ResponsiveContext);
   const { isShow, handleCommon } = useCommon();
   const {
     refDoc,
@@ -47,15 +56,14 @@ const FormDocument = () => {
           onEsc={() => setIsModalRef(false)}
         />
       )}
-      <Box width="xlarge" pad="small" gap="medium" animation="fadeIn">
+      <Box fill="horizontal" pad="small" gap="medium" animation="fadeIn">
         <Box
-          direction="row"
-          pad="small"
-          justify="between"
-          round="medium"
+          direction={size !== 'large' ? 'column' : 'row'}
           gap="small"
+          pad="small"
+          round="medium"
           background="light-2"
-          wrap
+          justify="between"
         >
           <Box
             onClick={() => setIsModalRef(true)}
@@ -65,7 +73,7 @@ const FormDocument = () => {
               Nº Referencia: {refDoc}
             </Heading>
           </Box>
-          <Box width="medium">
+          <Box width="small">
             <DateInput
               format="dd/mm/yyyy"
               value={date}
@@ -87,7 +95,7 @@ const FormDocument = () => {
           </Box>
           <Form
             disabledButton
-            direction="row"
+            direction={size !== 'large' ? 'column' : 'row'}
             schema={schemaFormDocument}
             onClickSubmit={addItemInTable}
           >
