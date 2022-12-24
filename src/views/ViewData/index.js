@@ -11,6 +11,7 @@ const TableDocument = () => {
   const { isShow, handleCommon } = useCommon();
   const {
     datum,
+    navigate,
     calculateTotal,
     deleteItem,
     setItemDocumentForm,
@@ -22,7 +23,7 @@ const TableDocument = () => {
         <Question
           message="¿Está seguro de que quiere eliminar el registro de la tabla?"
           onCancel={() => handleCommon.show({ question: false })}
-          onSubmit={() => deleteItem()}
+          onSubmit={deleteItem}
         />
       )}
       <Box fill="horizontal" pad="small" gap="medium" animation="fadeIn">
@@ -38,7 +39,7 @@ const TableDocument = () => {
             {`Nº Documentos: ${datum.length}`}
           </Heading>
           <Heading margin="none" level={2}>
-            {`Total: ${datum.length > 0 && calculateTotal(datum).toFixed(2)} €`}
+            {`Total: ${datum.length > 0 && calculateTotal(datum)} €`}
           </Heading>
         </Box>
         <CustomDataTable
@@ -55,7 +56,7 @@ const TableDocument = () => {
             direction: 'asc',
             property: 'Ref',
           }}
-          onClickView={() => {}}
+          onClickReport={() => navigate('/report')}
           onClickDelete={() => handleCommon.show({ question: true })}
         />
       </Box>

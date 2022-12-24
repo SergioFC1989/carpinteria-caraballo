@@ -82,7 +82,7 @@ const FormDocument = () => {
           </Box>
           <Heading margin="none" level={2}>
             {dataFormDocument.length > 0
-              ? `Total: ${calculateTotal(dataFormDocument).toFixed(2)} €`
+              ? `Total: ${calculateTotal(dataFormDocument)} €`
               : 'Total: 0 €'}
           </Heading>
         </Box>

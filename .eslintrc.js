@@ -10,9 +10,6 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
   ],
-  ecmaFeatures: {
-    jsx: true,
-  },
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',

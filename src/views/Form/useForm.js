@@ -86,7 +86,8 @@ const useForm = () => {
 
   const calculateTotal = (data) => {
     const totals = data.map((elem) => elem?.Total);
-    return totals.reduce((acc, val) => acc + val);
+    const addTotals = totals.reduce((acc, val) => acc + val);
+    return Number(addTotals).toFixed(2);
   };
 
   const onChangeDate = (value) => setDate(value);
@@ -103,7 +104,8 @@ const useForm = () => {
   const handleForm = async (data) => {
     handleCommon.show({ loading: true });
     try {
-      const total = Number(calculateTotal(dataFormDocument).toFixed(2));
+      const total = Number(calculateTotal(dataFormDocument));
+      console.log(total);
       const formDocument = [
         {
           Id: nanoid(),
@@ -116,7 +118,7 @@ const useForm = () => {
           }),
           Documento: dataFormDocument,
           Total: total,
-          Neto: (total - (data.IVA / 100) * total).toFixed(2),
+          Neto: Number(total - (data.IVA / 100) * total).toFixed(2),
           Cliente: dataFormClient,
           ...data,
         },

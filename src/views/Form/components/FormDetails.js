@@ -1,10 +1,12 @@
-import { Box, Button, Text } from 'grommet';
+import { useContext } from 'react';
+import { Box, Button, ResponsiveContext, Text } from 'grommet';
 import { CircleInformation } from 'grommet-icons';
 import Form from '../../../common/components/Form';
 import useForm from '../useForm';
 import { schemaFormDetails } from '../prop-types';
 
 const FormClient = () => {
+  const size = useContext(ResponsiveContext);
   const { isFormClient, handleForm } = useForm();
   return (
     <Box
@@ -26,9 +28,26 @@ const FormClient = () => {
           schema={schemaFormDetails}
           onClickSubmit={(data) => handleForm(data)}
         >
-          <Box width="medium" alignSelf="center" gap="small">
-            <Button secondary label="Cancelar" onClick={isFormClient} />
-            <Button primary label="Siguiente" type="submit" />
+          <Box fill="horizontal" align="center">
+            <Box
+              gap="small"
+              width="large"
+              justify="center"
+              direction={size !== 'large' ? 'column' : 'row'}
+            >
+              <Button
+                secondary
+                fill="horizontal"
+                label="Cancelar"
+                onClick={isFormClient}
+              />
+              <Button
+                primary
+                fill="horizontal"
+                label="Siguiente"
+                type="submit"
+              />
+            </Box>
           </Box>
         </Form>
       </Box>

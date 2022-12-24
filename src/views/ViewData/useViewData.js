@@ -1,12 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useRecoilState } from 'recoil';
 import queryFirestoreAPI from '../../api/query/firebase-query';
+import { stateItemTable } from '../../common/context/common-context';
 import useCommon from '../../common/hooks/useCommon';
 import useForm from '../Form/useForm';
 
 const useViewData = () => {
-  const { optionsHeader, handleCommon } = useCommon();
+  const { optionsHeader, handleCommon, navigate } = useCommon();
   const { datum, setDatum, calculateTotal } = useForm();
-  const [itemDocumentForm, setItemDocumentForm] = useState({});
+  const [itemDocumentForm, setItemDocumentForm] = useRecoilState(
+    stateItemTable
+  );
 
   const deleteItem = async () => {
     try {
@@ -43,11 +47,13 @@ const useViewData = () => {
 
   return {
     datum,
+    handleCommon,
+    itemDocumentForm,
+    navigate,
     setDatum,
     setItemDocumentForm,
     calculateTotal,
     deleteItem,
-    handleCommon,
   };
 };
 

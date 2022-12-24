@@ -104,19 +104,26 @@ const FormClient = () => {
               return isFormDetails();
             }}
           >
-            <Box
-              gap="small"
-              width="medium"
-              alignSelf={size !== 'large' && 'center'}
-              direction={size !== 'large' ? 'column' : 'row'}
-            >
-              <Button
-                fill
-                secondary
-                label="Cancelar"
-                onClick={isFormDocument}
-              />
-              <Button fill primary label="Siguiente" type="submit" />
+            <Box fill="horizontal" align="center">
+              <Box
+                gap="small"
+                width="large"
+                justify="center"
+                direction={size !== 'large' ? 'column' : 'row'}
+              >
+                <Button
+                  secondary
+                  fill="horizontal"
+                  label="Cancelar"
+                  onClick={isFormDocument}
+                />
+                <Button
+                  primary
+                  fill="horizontal"
+                  label="Siguiente"
+                  type="submit"
+                />
+              </Box>
             </Box>
           </Form>
         </Box>

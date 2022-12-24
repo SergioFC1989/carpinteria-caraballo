@@ -61,3 +61,8 @@ export const stateVisibilityForm = atom({
     details: false,
   },
 });
+
+export const stateItemTable = atom({
+  key: 'stateItemTable',
+  default: {},
+});
