@@ -86,7 +86,7 @@ const useForm = () => {
 
   const calculateTotal = (data) => {
     const totals = data.map((elem) => elem?.Total);
-    const addTotals = totals.reduce((acc, val) => acc + val);
+    const addTotals = totals.reduce((acc, val) => acc + val, 0);
     return Number(addTotals).toFixed(2);
   };
 

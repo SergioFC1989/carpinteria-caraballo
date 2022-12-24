@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Box, Button, Heading, Image, Text } from 'grommet';
 import Layout from '../../common/components/Layout';
 import CustomDataTable from '../../common/components/CustomDataTable';
@@ -8,6 +8,7 @@ import { schemaColumnsDocument } from '../Form/prop-types';
 
 const Report = () => {
   const { itemDocumentForm } = useViewData();
+  const [isPrint, setIsPrint] = useState(false);
 
   useEffect(() => {
     console.log(itemDocumentForm);
@@ -146,28 +147,34 @@ const Report = () => {
           NUMERO DE CUENTA INGRESOS: ES34 0081 7412 970001480852 SABADELL
         </Text>
       </Box>
-      <Box fill="horizontal" align="center">
-        <Box
-          pad="small"
-          justify="center"
-          direction="row"
-          gap="small"
-          width="large"
-        >
-          <Button
-            secondary
-            fill="horizontal"
-            label="Cancelar"
-            onClick={() => window.history.back()}
-          />
-          <Button
-            primary
-            fill="horizontal"
-            label="Imprimir"
-            onClick={() => window.history.back()}
-          />
+      {!isPrint && (
+        <Box fill="horizontal" align="center">
+          <Box
+            pad="small"
+            justify="center"
+            direction="row"
+            gap="small"
+            width="large"
+          >
+            <Button
+              secondary
+              fill="horizontal"
+              label="Cancelar"
+              onClick={() => window.history.back()}
+            />
+            <Button
+              primary
+              fill="horizontal"
+              label="Imprimir"
+              onClick={() => {
+                setTimeout(() => setIsPrint(true), 100);
+                setTimeout(() => window.print(), 150);
+                setTimeout(() => setIsPrint(false), 150);
+              }}
+            />
+          </Box>
         </Box>
-      </Box>
+      )}
     </Layout>
   );
 };
