@@ -2,10 +2,13 @@ import {
   ADD_DOCUMENT,
   GET_DOCUMENT,
   GET_ALL_DOCUMENTS,
+  DELETE_DOCUMENT,
 } from '../request/firebase-request';
 
 const queryFirestoreAPI = {
-  DELETE: {},
+  DELETE: {
+    DOCUMENT: (url, idFirestore) => DELETE_DOCUMENT(url, idFirestore),
+  },
   GET: {
     USER: (key, value) => GET_DOCUMENT('usuarios', key, value),
     DOCUMENTS: (url) => GET_ALL_DOCUMENTS(url),

@@ -1,4 +1,12 @@
-import { collection, getDocs, query, where, addDoc } from 'firebase/firestore';
+import {
+  addDoc,
+  deleteDoc,
+  collection,
+  doc,
+  getDocs,
+  query,
+  where,
+} from 'firebase/firestore';
 import { db } from '../config/firebase-config';
 
 export const GET_ALL_DOCUMENTS = async (url) => {
@@ -6,7 +14,11 @@ export const GET_ALL_DOCUMENTS = async (url) => {
     const data = [];
     const querySnapshot = await getDocs(collection(db, url));
     querySnapshot.forEach((doc) => {
-      data.push(doc.data());
+      const getData = doc.data();
+      data.push({
+        idFirestore: doc.id,
+        ...getData,
+      });
     });
     return data;
   } catch (error) {
@@ -31,3 +43,6 @@ export const GET_DOCUMENT = async (url, key, value) => {
 
 export const ADD_DOCUMENT = async (url, data = []) =>
   data.forEach((elem) => addDoc(collection(db, url), elem));
+
+export const DELETE_DOCUMENT = async (url, idFirestore) =>
+  deleteDoc(doc(db, url, idFirestore));

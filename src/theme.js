@@ -27,7 +27,7 @@ const CustomTheme = deepMerge(grommet, {
         },
       },
       medium: {
-        value: 768,
+        value: 800,
         edgeSize: {
           small: '0.1em',
           medium: '0.8em',
@@ -39,7 +39,7 @@ const CustomTheme = deepMerge(grommet, {
         edgeSize: {
           small: '0.4em',
           medium: '0.8em',
-          large: '5em',
+          large: '4em',
         },
       },
     },

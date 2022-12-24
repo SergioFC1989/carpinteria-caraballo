@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
-import { nanoid } from 'nanoid';
-import { Box, Button, Heading, Tag } from 'grommet';
+import { useContext, useEffect } from 'react';
+import { Box, Button, Heading, ResponsiveContext, Tag } from 'grommet';
 import { Search } from 'grommet-icons';
 
 import Form from '../../../common/components/Form';
@@ -13,6 +12,7 @@ import useForm from '../useForm';
 import useCommon from '../../../common/hooks/useCommon';
 
 const FormClient = () => {
+  const size = useContext(ResponsiveContext);
   const { isShow, handleCommon } = useCommon();
   const {
     dataFormClient,
@@ -99,16 +99,17 @@ const FormClient = () => {
             disabledButton
             schema={schemaFormClient}
             onClickSubmit={(data) => {
-              const addIdClient = {
-                Id: nanoid(),
-                ...data,
-              };
-              setDataFormClient(addIdClient);
+              setDataFormClient(data);
               handleCommon.show({ clients: false });
               return isFormDetails();
             }}
           >
-            <Box gap="small" width="medium" alignSelf="center">
+            <Box
+              gap="small"
+              width="medium"
+              alignSelf={size !== 'large' && 'center'}
+              direction={size !== 'large' ? 'column' : 'row'}
+            >
               <Button
                 fill
                 secondary

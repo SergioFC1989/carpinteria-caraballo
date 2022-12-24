@@ -1,54 +1,65 @@
-import { Box, Heading, Page, PageContent } from 'grommet';
+import { useContext } from 'react';
+import { Box, Heading, ResponsiveContext } from 'grommet';
 import CustomDataTable from '../../common/components/CustomDataTable';
 import schemaColumnsData from './prop-types';
-import useForm from '../Form/useForm';
+import useViewData from './useViewData';
+import useCommon from '../../common/hooks/useCommon';
+import Question from '../../common/components/Question';
 
 const TableDocument = () => {
-  const { datum, calculateTotal } = useForm();
-
-  console.log(
-    datum.map((elem) =>
-      elem.Documento.reduce((acc, val) => acc.Total + val.Total)
-    )
-  );
+  const size = useContext(ResponsiveContext);
+  const { isShow, handleCommon } = useCommon();
+  const {
+    datum,
+    calculateTotal,
+    deleteItem,
+    setItemDocumentForm,
+  } = useViewData();
 
   return (
-    <Page kind="full" justify="center" pad="small">
-      <PageContent gap="small" align="center">
-        <Box pad="small" gap="medium" animation="fadeIn">
-          <Box
-            direction="row"
-            pad="small"
-            justify="between"
-            round="medium"
-            background="light-2"
-          >
-            <Heading margin="none" level={2}>
-              {`Nº Documentos: ${datum.length}`}
-            </Heading>
-            <Heading margin="none" level={2}>
-              {`Total: ${datum.length > 0 && calculateTotal(datum)} €`}
-            </Heading>
-          </Box>
-          <CustomDataTable
-            actions
-            resizeable
-            data={datum}
-            schemaTable={schemaColumnsData}
-            options={{
-              delete: true,
-              edit: true,
-              report: true,
-            }}
-            sort={{
-              direction: 'asc',
-              property: 'Ref',
-            }}
-            onClickView={() => {}}
-          />
+    <>
+      {isShow.question && (
+        <Question
+          message="¿Está seguro de que quiere eliminar el registro de la tabla?"
+          onCancel={() => handleCommon.show({ question: false })}
+          onSubmit={() => deleteItem()}
+        />
+      )}
+      <Box fill="horizontal" pad="small" gap="medium" animation="fadeIn">
+        <Box
+          direction={size !== 'large' ? 'column' : 'row'}
+          pad="small"
+          gap="small"
+          round="medium"
+          background="light-2"
+          justify={size === 'large' ? 'between' : 'start'}
+        >
+          <Heading margin="none" level={2}>
+            {`Nº Documentos: ${datum.length}`}
+          </Heading>
+          <Heading margin="none" level={2}>
+            {`Total: ${datum.length > 0 && calculateTotal(datum).toFixed(2)} €`}
+          </Heading>
         </Box>
-      </PageContent>
-    </Page>
+        <CustomDataTable
+          actions
+          data={datum}
+          schemaTable={schemaColumnsData}
+          onClickRow={({ datum }) => setItemDocumentForm(datum)}
+          options={{
+            delete: true,
+            edit: true,
+            report: true,
+          }}
+          sort={{
+            direction: 'asc',
+            property: 'Ref',
+          }}
+          onClickView={() => {}}
+          onClickDelete={() => handleCommon.show({ question: true })}
+        />
+      </Box>
+    </>
   );
 };
 

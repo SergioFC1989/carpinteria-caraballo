@@ -151,6 +151,7 @@ const useForm = () => {
   useEffect(() => {
     optionsHeader?.title === 'Bienvenid@!!' && navigate('/dashboard');
     datum.length <= 0 && handleInitializeForm();
+    dataFormDocument.length <= 0 && isFormDocument();
   }, []);
 
   useEffect(() => {

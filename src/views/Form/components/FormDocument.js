@@ -103,7 +103,10 @@ const FormDocument = () => {
               <Button
                 icon={<Erase />}
                 label="Limpiar"
-                onClick={() => handleCommon.show({ question: true })}
+                onClick={() =>
+                  dataFormDocument.length > 0 &&
+                  handleCommon.show({ question: true })
+                }
               />
               <Button icon={<AddCircle />} label="Añadir" type="submit" />
             </Box>
@@ -113,7 +116,6 @@ const FormDocument = () => {
           <Box animation="fadeIn" gap="medium">
             <CustomDataTable
               actions
-              resizable
               options={{
                 delete: true,
               }}

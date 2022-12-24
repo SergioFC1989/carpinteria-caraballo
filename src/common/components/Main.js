@@ -44,7 +44,6 @@ const Main = ({ children }) => {
         background="brand"
         pad="small"
         border={{ side: 'bottom', color: 'text' }}
-        margin={{ bottom: 'small' }}
       >
         {size !== 'large' ? (
           <Box>
@@ -190,7 +189,7 @@ const Main = ({ children }) => {
               <Button
                 secondary
                 size="small"
-                icon={<Power size="small" color="status-error" />}
+                icon={<Power size="medium" color="status-error" />}
                 label="Salir"
                 onClick={() => handleCommon.show({ question: true })}
               />
@@ -199,7 +198,7 @@ const Main = ({ children }) => {
         )}
       </Header>
       <Box fill="horizontal" align="center">
-        <Box pad="small">
+        <Box pad="xxsmall">
           <Heading margin="none" textAlign="center">
             {optionsHeader?.title}
           </Heading>
