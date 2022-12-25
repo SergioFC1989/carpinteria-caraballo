@@ -8,9 +8,11 @@ import {
   stateFetchDatum,
   stateFormDocument,
   stateFormClient,
+  stateFormDetail,
   stateRefDoc,
   stateVisibilityForm,
   stateFetchClients,
+  stateItemTable,
 } from '../../common/context/common-context';
 
 const useForm = () => {
@@ -22,7 +24,6 @@ const useForm = () => {
     fetchClients,
     optionsHeader,
   } = useCommon();
-  const [itemDocumentForm, setItemDocumentForm] = useState([]);
   const [date, setDate] = useState(new Date().toISOString());
   const [isModalRef, setIsModalRef] = useState(false);
   const [refDoc, setRefDoc] = useRecoilState(stateRefDoc);
@@ -33,6 +34,14 @@ const useForm = () => {
   const [dataFormDocument, setDataFormDocument] = useRecoilState(
     stateFormDocument
   );
+  const [dataFormDetail, setDataFormDetail] = useRecoilState(stateFormDetail);
+  const [itemDocumentForm, setItemDocumentForm] = useRecoilState(
+    stateItemTable
+  );
+
+  console.log(dataFormDocument);
+  console.log(dataFormClient);
+  console.log(dataFormDetail);
 
   const lastRef = (value = []) => {
     refDoc === 0 && setRefDoc(1);
@@ -90,8 +99,6 @@ const useForm = () => {
     return Number(addTotals).toFixed(2);
   };
 
-  const onChangeDate = (value) => setDate(value);
-
   const isFormDocument = () =>
     setVisibilityForm({ document: true, client: false, details: false });
 
@@ -127,12 +134,14 @@ const useForm = () => {
         optionsHeader.title.toLocaleLowerCase(),
         formDocument
       );
+      console.log({ ...formDocument[0], isFirstAdd: true });
       setDatum((prev) => [...prev, ...formDocument]);
       setDataFormDocument([]);
+      setItemDocumentForm(...formDocument);
       setDataFormClient({});
-      isFormDocument();
       setRefDoc(refDoc + 1);
       handleCommon.show({ loading: false });
+      navigate('/report');
       return handleCommon.notification(
         'Enhorabuena',
         'Los datos se registraron correctamente',
@@ -153,7 +162,8 @@ const useForm = () => {
   useEffect(() => {
     optionsHeader?.title === 'Bienvenid@!!' && navigate('/dashboard');
     datum.length <= 0 && handleInitializeForm();
-    dataFormDocument.length <= 0 && isFormDocument();
+    dataFormDocument.length <= 0 ||
+      (dataFormDocument === undefined && isFormDocument());
   }, []);
 
   useEffect(() => {
@@ -166,6 +176,7 @@ const useForm = () => {
     refDoc,
     dataFormDocument,
     dataFormClient,
+    dataFormDetail,
     itemDocumentForm,
     date,
     isModalRef,
@@ -176,12 +187,13 @@ const useForm = () => {
     selectItemInTable,
     deleteItemInTable,
     calculateTotal,
-    onChangeDate,
     isFormDocument,
     isFormClient,
     isFormDetails,
+    setDate,
     setDataFormDocument,
     setDataFormClient,
+    setDataFormDetail,
     setDatum,
     handleForm,
     handleRefDoc,

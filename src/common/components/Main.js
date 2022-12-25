@@ -211,6 +211,13 @@ const Main = ({ children }) => {
             - {optionsHeader?.message} -
           </Text>
         </Box>
+        <Box>
+          {isShow?.isEditForm && (
+            <Heading margin="xsmall" level={2} color="status-warning">
+              Edicion del Registro
+            </Heading>
+          )}
+        </Box>
         <Box align="center">{children}</Box>
       </Box>
     </>

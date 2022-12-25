@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import {
   Box,
   Button,
@@ -33,9 +33,18 @@ const FormDocument = () => {
     selectItemInTable,
     deleteItemInTable,
     calculateTotal,
-    onChangeDate,
+    setDate,
     handleRefDoc,
+    setRefDoc,
+    setDataFormDocument,
   } = useForm();
+
+  useEffect(() => {
+    dataFormDocument === undefined && setDataFormDocument([]);
+    if (isShow.isEditForm) {
+      setRefDoc(dataFormDocument.Ref);
+    }
+  }, [dataFormDocument]);
 
   return (
     <>
@@ -77,7 +86,7 @@ const FormDocument = () => {
             <DateInput
               format="dd/mm/yyyy"
               value={date}
-              onChange={({ value }) => onChangeDate(value)}
+              onChange={({ value }) => setDate(value)}
             />
           </Box>
           <Heading margin="none" level={2}>
@@ -120,7 +129,7 @@ const FormDocument = () => {
                 delete: true,
               }}
               schemaTable={schemaColumnsDocument}
-              data={dataFormDocument}
+              data={dataFormDocument === undefined ? [] : dataFormDocument}
               onClickRow={({ datum }) => selectItemInTable(datum)}
               onClickDelete={deleteItemInTable}
             />

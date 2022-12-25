@@ -53,6 +53,11 @@ export const stateFormClient = atom({
   default: {},
 });
 
+export const stateFormDetail = atom({
+  key: 'stateFormDetail',
+  default: {},
+});
+
 export const stateVisibilityForm = atom({
   key: 'stateVisibilityForm',
   default: {

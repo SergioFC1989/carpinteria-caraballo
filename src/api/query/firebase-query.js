@@ -3,6 +3,7 @@ import {
   GET_DOCUMENT,
   GET_ALL_DOCUMENTS,
   DELETE_DOCUMENT,
+  EDIT_DOCUMENT,
 } from '../request/firebase-request';
 
 const queryFirestoreAPI = {
@@ -16,6 +17,9 @@ const queryFirestoreAPI = {
   POST: {
     USER: (data) => ADD_DOCUMENT('usuarios', data),
     DOCUMENTS: (url, data) => ADD_DOCUMENT(url, data),
+  },
+  UPDATE: {
+    DOCUMENT: (url, idFirestore, data) => EDIT_DOCUMENT(url, idFirestore, data),
   },
 };
 

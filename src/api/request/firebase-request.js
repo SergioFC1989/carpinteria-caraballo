@@ -6,6 +6,7 @@ import {
   getDocs,
   query,
   where,
+  updateDoc,
 } from 'firebase/firestore';
 import { db } from '../config/firebase-config';
 
@@ -46,3 +47,6 @@ export const ADD_DOCUMENT = async (url, data = []) =>
 
 export const DELETE_DOCUMENT = async (url, idFirestore) =>
   deleteDoc(doc(db, url, idFirestore));
+
+export const EDIT_DOCUMENT = async (url, idFirestore, data = []) =>
+  updateDoc(doc(db, url, idFirestore), data);

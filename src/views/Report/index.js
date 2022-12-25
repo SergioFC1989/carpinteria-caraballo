@@ -7,13 +7,13 @@ import useViewData from '../ViewData/useViewData';
 import { schemaColumnsDocument } from '../Form/prop-types';
 
 const Report = () => {
-  const { itemDocumentForm } = useViewData();
+  const { itemDocumentForm, setItemDocumentForm, navigate } = useViewData();
   const [isPrint, setIsPrint] = useState(false);
 
   useEffect(() => {
     console.log(itemDocumentForm);
-    itemDocumentForm === {} && window.history.back();
-  }, []);
+    Object.keys(itemDocumentForm).length <= 0 && window.history.back();
+  }, [itemDocumentForm]);
 
   return (
     <Layout>
@@ -160,7 +160,15 @@ const Report = () => {
               secondary
               fill="horizontal"
               label="Cancelar"
-              onClick={() => window.history.back()}
+              onClick={() => {
+                const path = {
+                  Facturas: 'bill',
+                  Presupuestos: 'budget',
+                  Clientes: 'clients',
+                };
+                navigate(`/dashboard/${path[itemDocumentForm.Tipo]}`);
+                setItemDocumentForm({});
+              }}
             />
             <Button
               primary

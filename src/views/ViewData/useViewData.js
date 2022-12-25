@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 import { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
 import queryFirestoreAPI from '../../api/query/firebase-query';
