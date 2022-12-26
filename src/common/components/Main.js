@@ -23,7 +23,12 @@ const Main = ({ children }) => {
     optionsHeader,
     setOptionsHeader,
   } = useCommon();
-  const { setDataFormDocument, setDatum, setRefDoc } = useForm();
+  const {
+    setDataFormDocument,
+    setDatum,
+    setRefDoc,
+    isFormDocument,
+  } = useForm();
   const [open, setOpen] = useState(false);
 
   return (
@@ -77,6 +82,7 @@ const Main = ({ children }) => {
                         setDatum([]);
                         setDataFormDocument([]);
                         setRefDoc(0);
+                        isFormDocument();
                         navigate('/dashboard/budget');
                       }
                     }}
@@ -94,6 +100,7 @@ const Main = ({ children }) => {
                         setDatum([]);
                         setDataFormDocument([]);
                         setRefDoc(0);
+                        isFormDocument();
                         navigate('/dashboard/bill');
                       }
                     }}
@@ -153,6 +160,7 @@ const Main = ({ children }) => {
                     setDatum([]);
                     setDataFormDocument([]);
                     setRefDoc(0);
+                    isFormDocument();
                     navigate('/dashboard/budget');
                   }
                 }}
@@ -170,6 +178,7 @@ const Main = ({ children }) => {
                     setDatum([]);
                     setDataFormDocument([]);
                     setRefDoc(0);
+                    isFormDocument();
                     navigate('/dashboard/bill');
                   }
                 }}

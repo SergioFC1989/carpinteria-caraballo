@@ -7,12 +7,18 @@ import useViewData from '../ViewData/useViewData';
 import { schemaColumnsDocument } from '../Form/prop-types';
 
 const Report = () => {
-  const { itemDocumentForm, setItemDocumentForm, navigate } = useViewData();
+  const {
+    itemDocumentForm,
+    setItemDocumentForm,
+    isFormDocument,
+    navigate,
+  } = useViewData();
   const [isPrint, setIsPrint] = useState(false);
 
   useEffect(() => {
-    console.log(itemDocumentForm);
-    Object.keys(itemDocumentForm).length <= 0 && window.history.back();
+    Object.keys(itemDocumentForm).length <= 0 && navigate('/dashboard');
+    return () =>
+      Object.keys(itemDocumentForm).length <= 0 && window.history.back();
   }, [itemDocumentForm]);
 
   return (
@@ -166,6 +172,7 @@ const Report = () => {
                   Presupuestos: 'budget',
                   Clientes: 'clients',
                 };
+                isFormDocument();
                 navigate(`/dashboard/${path[itemDocumentForm.Tipo]}`);
                 setItemDocumentForm({});
               }}
@@ -175,6 +182,7 @@ const Report = () => {
               fill="horizontal"
               label="Imprimir"
               onClick={() => {
+                window.document.title = `${itemDocumentForm.Tipo} - ${itemDocumentForm.Ref} - ${itemDocumentForm.Fecha}: ${itemDocumentForm.Cliente.Nombre}_${itemDocumentForm.Detalle}`;
                 setTimeout(() => setIsPrint(true), 100);
                 setTimeout(() => window.print(), 150);
                 setTimeout(() => setIsPrint(false), 150);

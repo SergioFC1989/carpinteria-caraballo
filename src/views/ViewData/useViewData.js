@@ -8,7 +8,7 @@ import useForm from '../Form/useForm';
 
 const useViewData = () => {
   const { optionsHeader, handleCommon, navigate } = useCommon();
-  const { datum, setDatum, calculateTotal } = useForm();
+  const { datum, setDatum, isFormDocument, calculateTotal } = useForm();
   const [itemDocumentForm, setItemDocumentForm] = useRecoilState(
     stateItemTable
   );
@@ -52,6 +52,7 @@ const useViewData = () => {
     itemDocumentForm,
     navigate,
     setDatum,
+    isFormDocument,
     setItemDocumentForm,
     calculateTotal,
     deleteItem,
