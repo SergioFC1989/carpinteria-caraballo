@@ -39,10 +39,6 @@ const useForm = () => {
     stateItemTable
   );
 
-  console.log(dataFormDocument);
-  console.log(dataFormClient);
-  console.log(dataFormDetail);
-
   const lastRef = (value = []) => {
     refDoc === 0 && setRefDoc(1);
     value.length > 0 &&
@@ -162,8 +158,8 @@ const useForm = () => {
   useEffect(() => {
     optionsHeader?.title === 'Bienvenid@!!' && navigate('/dashboard');
     datum.length <= 0 && handleInitializeForm();
-    dataFormDocument.length <= 0 ||
-      (dataFormDocument === undefined && isFormDocument());
+    dataFormDocument === undefined ||
+      (dataFormDocument.length <= 0 && isFormDocument());
   }, []);
 
   useEffect(() => {
@@ -197,6 +193,7 @@ const useForm = () => {
     setDatum,
     handleForm,
     handleRefDoc,
+    navigate,
   };
 };
 

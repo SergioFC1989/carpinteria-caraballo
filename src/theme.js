@@ -49,9 +49,6 @@ const CustomTheme = deepMerge(grommet, {
       computer: 'large',
     },
     focus: {
-      border: {
-        color: 'transparent',
-      },
       outline: {
         color: 'transparent',
       },

@@ -5,7 +5,6 @@ import schemaColumnsData from './prop-types';
 import useViewData from './useViewData';
 import useCommon from '../../common/hooks/useCommon';
 import Question from '../../common/components/Question';
-import useForm from '../Form/useForm';
 
 const TableDocument = () => {
   const size = useContext(ResponsiveContext);
@@ -15,15 +14,8 @@ const TableDocument = () => {
     navigate,
     calculateTotal,
     deleteItem,
-    itemDocumentForm,
     setItemDocumentForm,
   } = useViewData();
-  const {
-    setDataFormDocument,
-    setDataFormClient,
-    setDataFormDetail,
-    isFormDocument,
-  } = useForm();
 
   return (
     <>
@@ -68,22 +60,7 @@ const TableDocument = () => {
           onClickDelete={() => handleCommon.show({ question: true })}
           onClickEdit={() => {
             handleCommon.show({ isEditForm: true });
-            setDataFormDocument(itemDocumentForm.Documento);
-            setDataFormClient(itemDocumentForm.Cliente);
-            setDataFormDetail({
-              IVA: itemDocumentForm.IVA,
-              Detalle: itemDocumentForm.Detalle,
-            });
-            setItemDocumentForm({
-              idFirestore: itemDocumentForm.idFirestore,
-              Id: itemDocumentForm.Id,
-              Tipo: itemDocumentForm.Tipo,
-              Ref: itemDocumentForm.Ref,
-              Fecha: itemDocumentForm.Fecha,
-              Neto: itemDocumentForm.Neto,
-              Total: itemDocumentForm.Total,
-            });
-            isFormDocument();
+            return navigate('/report');
           }}
         />
       </Box>

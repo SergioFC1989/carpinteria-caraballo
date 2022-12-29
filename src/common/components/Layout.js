@@ -1,14 +1,14 @@
 import { Box } from 'grommet';
 import PropTypes from 'prop-types';
 
-const Layout = ({ background, align, children }) => (
+const Layout = ({ background, align, children, ...props }) => (
   <Box
     fill="horizontal"
-    height="100vh"
     gap="small"
     animation="fadeIn"
     align={align}
     background={background}
+    {...props}
   >
     {children}
   </Box>
