@@ -108,7 +108,6 @@ const useForm = () => {
     handleCommon.show({ loading: true });
     try {
       const total = Number(calculateTotal(dataFormDocument));
-      console.log(total);
       const formDocument = [
         {
           Id: nanoid(),
@@ -130,7 +129,6 @@ const useForm = () => {
         optionsHeader.title.toLocaleLowerCase(),
         formDocument
       );
-      console.log({ ...formDocument[0], isFirstAdd: true });
       setDatum((prev) => [...prev, ...formDocument]);
       setDataFormDocument([]);
       setItemDocumentForm(...formDocument);

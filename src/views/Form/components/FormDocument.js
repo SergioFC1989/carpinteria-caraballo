@@ -17,12 +17,10 @@ import ModalRef from './ModalRef';
 import { schemaColumnsDocument, schemaFormDocument } from '../prop-types';
 import useForm from '../useForm';
 import useCommon from '../../../common/hooks/useCommon';
-import useViewData from '../../ViewData/useViewData';
 
 const FormDocument = () => {
   const size = useContext(ResponsiveContext);
   const { isShow, handleCommon } = useCommon();
-  const { itemDocumentForm } = useViewData();
   const {
     refDoc,
     dataFormDocument,
@@ -83,7 +81,6 @@ const FormDocument = () => {
             />
           </Box>
           <Heading margin="none" level={2}>
-            {isShow.isEditForm && `Total: ${itemDocumentForm.Total}`}
             {dataFormDocument !== undefined || dataFormDocument.length > 0
               ? `Total: ${calculateTotal(dataFormDocument)} €`
               : 'Total: 0 €'}
