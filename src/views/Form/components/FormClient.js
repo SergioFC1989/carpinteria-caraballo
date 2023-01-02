@@ -94,7 +94,7 @@ const FormClient = () => {
             }}
           />
         </Box>
-        <Box pad="small" gap="small" background="light-1" round="medium">
+        <Box pad="small" gap="small">
           <Form
             disabledButton
             schema={schemaFormClient}

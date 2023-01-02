@@ -2,16 +2,17 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../../api/config/firebase-config';
 
 import errorsFirestoreAPI from '../../api/errors/firebase-errors';
-import { auth } from '../../api/config/firebase-config';
+import errors from '../../api/errors/errors';
+import queryFirestoreAPI from '../../api/query/firebase-query';
 
 import {
   stateHeaderDefault,
   stateIsShow,
   stateNotification,
 } from '../context/common-context';
-import queryFirestoreAPI from '../../api/query/firebase-query';
 
 const useCommon = () => {
   const navigate = useNavigate();
@@ -27,11 +28,12 @@ const useCommon = () => {
   const handleErrors = (value) => {
     const message =
       typeof value === 'object' ? value.message.toString() : value;
+    console.log(message);
     handleCommon.notification(
       'Lo sentimos...',
       message.includes('Firebase: Error')
         ? errorsFirestoreAPI[value?.message]
-        : value?.message,
+        : errors[message],
       'critical',
       true
     );

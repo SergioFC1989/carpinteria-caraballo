@@ -27,21 +27,23 @@ const TableDocument = () => {
         />
       )}
       <Box fill="horizontal" pad="small" gap="medium" animation="fadeIn">
-        <Box
-          direction={size !== 'large' ? 'column' : 'row'}
-          pad="small"
-          gap="small"
-          round="medium"
-          background="light-2"
-          justify={size === 'large' ? 'between' : 'start'}
-        >
-          <Heading margin="none" level={2}>
-            {`Nº Documentos: ${datum.length}`}
-          </Heading>
-          <Heading margin="none" level={2}>
-            {`Total: ${datum.length > 0 && calculateTotal(datum)} €`}
-          </Heading>
-        </Box>
+        {datum.length > 0 && (
+          <Box
+            direction={size !== 'large' ? 'column' : 'row'}
+            pad="small"
+            gap="small"
+            round="medium"
+            background="light-2"
+            justify={size === 'large' ? 'between' : 'start'}
+          >
+            <Heading margin="none" level={2}>
+              {`Nº Documentos: ${datum.length}`}
+            </Heading>
+            <Heading margin="none" level={2}>
+              {`Total: ${datum.length > 0 && calculateTotal(datum)} €`}
+            </Heading>
+          </Box>
+        )}
         <CustomDataTable
           actions
           data={datum}

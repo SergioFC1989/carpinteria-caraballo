@@ -4,6 +4,7 @@ import { AddCircle, Erase } from 'grommet-icons';
 import {
   Box,
   Button,
+  Collapsible,
   FormField,
   Heading,
   Image,
@@ -30,6 +31,10 @@ const Report = () => {
   const { itemDocumentForm, setItemDocumentForm, navigate } = useViewData();
   const { isShow, handleCommon, handleErrors } = useCommon();
   const [itemSelected, setItemSelected] = useState([]);
+  const [isOpen, setIsOpen] = useState({
+    client: false,
+    document: false,
+  });
   const [datum, setDatum] = useRecoilState(stateFetchDatum);
 
   useEffect(() => {
@@ -42,16 +47,24 @@ const Report = () => {
   }, []);
 
   useEffect(() => {
-    const allTotal = itemDocumentForm?.Documento.map((elem) =>
-      Number(elem.Total)
-    );
-    const totals = allTotal.reduce((acc, val) => acc + val);
-    const neto = totals - (itemDocumentForm.IVA * totals) / 100;
-    setItemDocumentForm((prev) => ({
-      ...prev,
-      Total: totals,
-      Neto: neto.toFixed(2),
-    }));
+    if (Object.keys(itemDocumentForm.Documento).length > 0) {
+      const allTotal = itemDocumentForm?.Documento.map((elem) =>
+        Number(elem.Total)
+      );
+      const totals = allTotal.reduce((acc, val) => acc + val);
+      const neto = totals - (itemDocumentForm.IVA * totals) / 100;
+      setItemDocumentForm((prev) => ({
+        ...prev,
+        Total: totals,
+        Neto: neto.toFixed(2),
+      }));
+    } else {
+      setItemDocumentForm((prev) => ({
+        ...prev,
+        Total: 0,
+        Neto: 0,
+      }));
+    }
   }, [itemDocumentForm.Documento]);
 
   const selectItemTable = (datum) =>
@@ -152,130 +165,142 @@ const Report = () => {
             </FormField>
           </Box>
         </Box>
-        <Box
-          pad="small"
-          gap="small"
-          border="all"
-          round="small"
-          margin={{ horizontal: 'xsmall' }}
-        >
-          <Heading margin="none" level={3}>
-            Datos del Ciente
-          </Heading>
-          <Box gap="small" width="large">
-            <FormField required label="Nombre">
-              <TextInput
-                value={itemDocumentForm.Cliente.Nombre}
-                onChange={(e) =>
-                  setItemDocumentForm((prev) => ({
-                    ...prev,
-                    Cliente: {
-                      ...prev.Cliente,
-                      Nombre: e.target.value,
-                    },
-                  }))
-                }
-              />
-            </FormField>
-            <FormField required label="DNI">
-              <TextInput
-                value={itemDocumentForm.Cliente.DNI}
-                onChange={(e) =>
-                  setItemDocumentForm((prev) => ({
-                    ...prev,
-                    Cliente: {
-                      ...prev.Cliente,
-                      DNI: e.target.value,
-                    },
-                  }))
-                }
-              />
-            </FormField>
-            <FormField required label="Telefono">
-              <TextInput
-                value={itemDocumentForm.Cliente.Teléfono}
-                onChange={(e) =>
-                  setItemDocumentForm((prev) => ({
-                    ...prev,
-                    Cliente: {
-                      ...prev.Cliente,
-                      Teléfono: e.target.value,
-                    },
-                  }))
-                }
-              />
-            </FormField>
-            <FormField required label="Direccion">
-              <TextInput
-                value={itemDocumentForm.Cliente.Direccion}
-                onChange={(e) =>
-                  setItemDocumentForm((prev) => ({
-                    ...prev,
-                    Cliente: {
-                      ...prev.Cliente,
-                      Direccion: e.target.value,
-                    },
-                  }))
-                }
-              />
-            </FormField>
-            <FormField required label="Localidad">
-              <TextInput
-                value={itemDocumentForm.Cliente.Localidad}
-                onChange={(e) =>
-                  setItemDocumentForm((prev) => ({
-                    ...prev,
-                    Cliente: {
-                      ...prev.Cliente,
-                      Localidad: e.target.value,
-                    },
-                  }))
-                }
-              />
-            </FormField>
-          </Box>
-        </Box>
-        <Box
-          pad="small"
-          gap="medium"
-          direction="row"
-          background="light-2"
-          justify="end"
-          round="small"
-        >
-          <Box direction="row" gap="xsmall">
-            <Text margin="none">Total Neto:</Text>
-            <Text margin="none" weight="bold">
-              {itemDocumentForm?.Neto} €
-            </Text>
-          </Box>
-          <Box direction="row" gap="xsmall">
-            <Text margin="none">I.V.A:</Text>
-            <Text margin="none" weight="bold">
-              {itemDocumentForm?.IVA} %
-            </Text>
-          </Box>
-          <Box direction="row" gap="xsmall">
-            <Text margin="none">Total:</Text>
-            <Text margin="none" weight="bold">
-              {itemDocumentForm?.Total} €
-            </Text>
-          </Box>
-        </Box>
-        <Box pad="small" width="large">
-          <FormField required label="Detalle">
-            <TextInput
-              value={itemDocumentForm.Detalle}
-              onChange={(e) =>
-                setItemDocumentForm((prev) => ({
-                  ...prev,
-                  Detalle: e.target.value,
-                }))
+        <Box gap="small" margin={{ horizontal: 'xsmall' }}>
+          <Box direction="row" align="baseline" gap="medium">
+            <Heading margin="none" level={2}>
+              Datos del Ciente
+            </Heading>
+            <Button
+              size="small"
+              label={isOpen.client ? 'Ocultar detalles' : 'Ver detalles'}
+              onClick={() =>
+                setIsOpen((prev) => ({ ...prev, client: !isOpen.client }))
               }
             />
-          </FormField>
+          </Box>
+          <Collapsible open={isOpen.client}>
+            <Box
+              gap="small"
+              width="large"
+              background="light-1"
+              pad="xsmall"
+              round="medium"
+            >
+              <FormField required label="Nombre">
+                <TextInput
+                  value={itemDocumentForm.Cliente.Nombre}
+                  onChange={(e) =>
+                    setItemDocumentForm((prev) => ({
+                      ...prev,
+                      Cliente: {
+                        ...prev.Cliente,
+                        Nombre: e.target.value,
+                      },
+                    }))
+                  }
+                />
+              </FormField>
+              <FormField required label="DNI">
+                <TextInput
+                  value={itemDocumentForm.Cliente.DNI}
+                  onChange={(e) =>
+                    setItemDocumentForm((prev) => ({
+                      ...prev,
+                      Cliente: {
+                        ...prev.Cliente,
+                        DNI: e.target.value,
+                      },
+                    }))
+                  }
+                />
+              </FormField>
+              <FormField required label="Telefono">
+                <TextInput
+                  value={itemDocumentForm.Cliente.Teléfono}
+                  onChange={(e) =>
+                    setItemDocumentForm((prev) => ({
+                      ...prev,
+                      Cliente: {
+                        ...prev.Cliente,
+                        Teléfono: e.target.value,
+                      },
+                    }))
+                  }
+                />
+              </FormField>
+              <FormField required label="Direccion">
+                <TextInput
+                  value={itemDocumentForm.Cliente.Direccion}
+                  onChange={(e) =>
+                    setItemDocumentForm((prev) => ({
+                      ...prev,
+                      Cliente: {
+                        ...prev.Cliente,
+                        Direccion: e.target.value,
+                      },
+                    }))
+                  }
+                />
+              </FormField>
+              <FormField required label="Localidad">
+                <TextInput
+                  value={itemDocumentForm.Cliente.Localidad}
+                  onChange={(e) =>
+                    setItemDocumentForm((prev) => ({
+                      ...prev,
+                      Cliente: {
+                        ...prev.Cliente,
+                        Localidad: e.target.value,
+                      },
+                    }))
+                  }
+                />
+              </FormField>
+            </Box>
+          </Collapsible>
         </Box>
-        <Box pad="small" gap="small" background="light-1" round="medium">
+        <Box gap="medium" direction="row" justify="between">
+          <Box pad="small" width="large">
+            <FormField required label="Detalle">
+              <TextInput
+                value={itemDocumentForm.Detalle}
+                onChange={(e) =>
+                  setItemDocumentForm((prev) => ({
+                    ...prev,
+                    Detalle: e.target.value,
+                  }))
+                }
+              />
+            </FormField>
+          </Box>
+          <Box direction="row" gap="medium" align="end" pad="medium">
+            <Box direction="row" gap="xsmall">
+              <Text margin="none">Total Neto:</Text>
+              <Text margin="none" weight="bold">
+                {itemDocumentForm?.Neto} €
+              </Text>
+            </Box>
+            <Box direction="row" gap="xsmall">
+              <Text margin="none">I.V.A:</Text>
+              <Text margin="none" weight="bold">
+                {itemDocumentForm?.IVA} %
+              </Text>
+            </Box>
+            <Box direction="row" gap="xsmall">
+              <Text margin="none">Total:</Text>
+              <Text margin="none" weight="bold">
+                {itemDocumentForm?.Total} €
+              </Text>
+            </Box>
+          </Box>
+        </Box>
+        <Box
+          pad="small"
+          margin={{ horizontal: 'xsmall' }}
+          gap="small"
+          background="light-1"
+          round="medium"
+        >
           <Form
             disabledButton
             direction={size !== 'large' ? 'column' : 'row'}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { DataTable, Box, Button, Text } from 'grommet';
+import { DataTable, Box, Button, Text, Image } from 'grommet';
 import { View, DocumentPdf, Edit, Trash } from 'grommet-icons';
+import NotFound from '../assets/not-found.svg';
 
 const CustomDataTable = ({
   data = [],
@@ -72,26 +73,35 @@ const CustomDataTable = ({
   }, [data]);
 
   return (
-    <Box
-      fill="horizontal"
-      height={{ min: 'auto', max: '30.8em' }}
-      overflow="auto"
-      border="all"
-    >
-      <DataTable
-        pin
-        fill="horizontal"
-        data={data}
-        columns={columns}
-        border={{
-          size: 'small',
-          body: {
-            color: 'light-3',
-            side: 'bottom',
-          },
-        }}
-        {...props}
-      />
+    <Box>
+      {data.length > 0 ? (
+        <Box
+          fill="horizontal"
+          height={{ min: 'auto', max: '30.8em' }}
+          overflow="auto"
+          border="all"
+          justify="center"
+        >
+          <DataTable
+            pin
+            fill="horizontal"
+            data={data}
+            columns={columns}
+            border={{
+              size: 'small',
+              body: {
+                color: 'light-3',
+                side: 'bottom',
+              },
+            }}
+            {...props}
+          />
+        </Box>
+      ) : (
+        <Box width="medium" height="medium" alignSelf="center">
+          <Image fit="contain" src={NotFound} />
+        </Box>
+      )}
     </Box>
   );
 };
