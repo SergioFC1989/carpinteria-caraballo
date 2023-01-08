@@ -20,6 +20,7 @@ const FormClient = () => {
     setDataFormClient,
     isFormDetails,
     isFormDocument,
+    checkCreatedClient,
   } = useForm();
 
   useEffect(() => {
@@ -98,8 +99,10 @@ const FormClient = () => {
           <Form
             disabledButton
             schema={schemaFormClient}
-            onClickSubmit={(data) => {
+            onClickSubmit={async (data) => {
+              console.log(data);
               setDataFormClient(data);
+              checkCreatedClient([data]);
               handleCommon.show({ clients: false });
               return isFormDetails();
             }}

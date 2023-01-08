@@ -104,9 +104,30 @@ const useForm = () => {
   const isFormDetails = () =>
     setVisibilityForm({ document: false, client: false, details: true });
 
+  const checkCreatedClient = async (data) => {
+    const foundClient = clients.find((elem) => elem.Nombre === data.Nombre);
+    if (foundClient === undefined) {
+      try {
+        handleCommon.show({ loading: true });
+        await queryFirestoreAPI.POST.DOCUMENTS('clientes', data);
+        setClients((prev) => [...prev, ...data]);
+        return handleCommon.notification(
+          'Enhorabuena',
+          'Cliente creado correctamente',
+          'normal',
+          true
+        );
+      } catch (error) {
+        handleCommon.show({ loading: false });
+        return handleErrors(error);
+      }
+    }
+    return true;
+  };
+
   const handleForm = async (data) => {
-    handleCommon.show({ loading: true });
     try {
+      handleCommon.show({ loading: true });
       const total = Number(calculateTotal(dataFormDocument));
       const formDocument = [
         {
@@ -184,6 +205,7 @@ const useForm = () => {
     isFormDocument,
     isFormClient,
     isFormDetails,
+    checkCreatedClient,
     setDate,
     setDataFormDocument,
     setDataFormClient,

@@ -8,7 +8,7 @@ import {
   ResponsiveContext,
   Text,
 } from 'grommet';
-import { Group, Document, Note, Power, Menu, FormDown } from 'grommet-icons';
+import { Document, Note, Power, Menu, FormDown } from 'grommet-icons';
 import { onAuthSignOut } from '../../api/auth/firebase-auth';
 import useForm from '../../views/Form/useForm';
 import useCommon from '../hooks/useCommon';
@@ -106,18 +106,6 @@ const Main = ({ children }) => {
                     }}
                   />
                   <Button
-                    icon={<Group size="small" color="text" />}
-                    label="Clientes"
-                    onClick={() => {
-                      if (optionsHeader?.title !== 'Clientes') {
-                        setDatum([]);
-                        setDataFormDocument([]);
-                        setRefDoc(0);
-                        navigate('/dashboard/clients');
-                      }
-                    }}
-                  />
-                  <Button
                     icon={<Power size="small" color="status-error" />}
                     label="Salir"
                     onClick={() => handleCommon.show({ question: true })}
@@ -180,18 +168,6 @@ const Main = ({ children }) => {
                     setRefDoc(0);
                     isFormDocument();
                     navigate('/dashboard/bill');
-                  }
-                }}
-              />
-              <Button
-                icon={<Group size="medium" color="text" />}
-                label="Clientes"
-                onClick={() => {
-                  if (optionsHeader?.title !== 'Clientes') {
-                    setDatum([]);
-                    setDataFormDocument([]);
-                    setRefDoc(0);
-                    navigate('/dashboard/clients');
                   }
                 }}
               />
