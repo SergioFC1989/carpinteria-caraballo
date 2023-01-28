@@ -1,13 +1,14 @@
-import { Box, Heading, Page, PageContent, Paragraph } from 'grommet';
+import { Box, Heading, Paragraph } from 'grommet';
 
 import Form from '../../common/components/Form';
+import Layout from '../../common/components/Layout';
 import useLogin from './useLogin';
 
 const Login = () => {
   const { schemaLogin, onLoginWithEmail } = useLogin();
   return (
-    <Page kind="narrow" justify="center" pad="small">
-      <PageContent gap="small" align="center">
+    <Layout align="center">
+      <Box width="large" justify="center" pad="small">
         <Box pad="small">
           <Heading fill margin="none" textAlign="center">
             Iniciar Sesion
@@ -17,12 +18,12 @@ const Login = () => {
           </Paragraph>
         </Box>
         <Form
-          width="medium"
+          width="large"
           schema={schemaLogin}
           onClickSubmit={(value) => onLoginWithEmail(value)}
         />
-      </PageContent>
-    </Page>
+      </Box>
+    </Layout>
   );
 };
 
