@@ -14,6 +14,15 @@ const useViewData = () => {
   );
 
   const deleteItem = async () => {
+    console.log(datum);
+    if (datum.length <= 0) {
+      return handleCommon.notification(
+        'Ha ocurrido un error',
+        'Refresque la página por favor',
+        'critical',
+        true
+      );
+    }
     try {
       handleCommon.show({ loading: true });
       await queryFirestoreAPI.DELETE.DOCUMENT(
@@ -40,9 +49,11 @@ const useViewData = () => {
         true
       );
     }
+    return true;
   };
 
   useEffect(() => {
+    console.log(datum);
     calculateTotal(datum);
   }, [datum]);
 

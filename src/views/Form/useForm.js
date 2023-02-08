@@ -43,8 +43,8 @@ const useForm = () => {
     refDoc === 0 && setRefDoc(1);
     value.length > 0 &&
       (() => {
-        const ref = value.map((elem) => elem?.Ref);
-        setRefDoc(Math.max(...ref) + 1);
+        const ref = value.map((elem) => Number(elem?.Ref));
+        setRefDoc(Number(Math.max(...ref) + 1));
       })();
   };
 
@@ -128,7 +128,7 @@ const useForm = () => {
   const handleForm = async (data) => {
     try {
       handleCommon.show({ loading: true });
-      const total = Number(calculateTotal(dataFormDocument));
+      const neto = Number(calculateTotal(dataFormDocument));
       const formDocument = [
         {
           Id: nanoid(),
@@ -140,8 +140,8 @@ const useForm = () => {
             year: 'numeric',
           }),
           Documento: dataFormDocument,
-          Total: total,
-          Neto: Number(total - (data.IVA / 100) * total).toFixed(2),
+          Total: Number(neto + (data.IVA / 100) * neto),
+          Neto: neto,
           Cliente: dataFormClient,
           ...data,
         },
@@ -154,7 +154,7 @@ const useForm = () => {
       setDataFormDocument([]);
       setItemDocumentForm(...formDocument);
       setDataFormClient({});
-      setRefDoc(refDoc + 1);
+      lastRef([...datum, ...formDocument]);
       handleCommon.show({ loading: false });
       navigate('/report');
       return handleCommon.notification(
