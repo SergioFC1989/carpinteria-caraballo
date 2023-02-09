@@ -42,8 +42,10 @@ export const GET_DOCUMENT = async (url, key, value) => {
   }
 };
 
-export const ADD_DOCUMENT = async (url, data = []) =>
-  data.forEach((elem) => addDoc(collection(db, url), elem));
+export const ADD_DOCUMENT = async (url, data = []) => {
+  const doc = await addDoc(collection(db, url), ...data);
+  return doc;
+};
 
 export const DELETE_DOCUMENT = async (url, idFirestore) =>
   deleteDoc(doc(db, url, idFirestore));

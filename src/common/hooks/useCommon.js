@@ -5,7 +5,6 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../api/config/firebase-config';
 
 import errorsFirestoreAPI from '../../api/errors/firebase-errors';
-import errors from '../../api/errors/errors';
 import queryFirestoreAPI from '../../api/query/firebase-query';
 
 import {
@@ -32,7 +31,7 @@ const useCommon = () => {
       'Lo sentimos...',
       message.includes('Firebase: Error')
         ? errorsFirestoreAPI[value?.message]
-        : errors[message],
+        : message,
       'critical',
       true
     );

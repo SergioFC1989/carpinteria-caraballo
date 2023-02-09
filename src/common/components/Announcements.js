@@ -10,7 +10,7 @@ const Announcements = ({ ...props }) => {
       {notification.visible && (
         <Notification
           toast
-          time={5000}
+          time={3000}
           title={notification.title}
           message={notification.message}
           status={notification.status}

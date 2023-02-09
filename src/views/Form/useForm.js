@@ -131,7 +131,7 @@ const useForm = () => {
       const neto = Number(calculateTotal(dataFormDocument));
       const formDocument = [
         {
-          Id: nanoid(),
+          idRef: nanoid(),
           Tipo: optionsHeader.title,
           Ref: refDoc,
           Fecha: new Date(date).toLocaleDateString('es-ES', {
@@ -146,24 +146,28 @@ const useForm = () => {
           ...data,
         },
       ];
-      await queryFirestoreAPI.POST.DOCUMENTS(
+      const { id } = await queryFirestoreAPI.POST.DOCUMENTS(
         optionsHeader.title.toLocaleLowerCase(),
         formDocument
       );
-      const addNewData = [...datum, ...formDocument];
+      const addedIdInFormDocument = formDocument.map((elem) => ({
+        idFirestore: id,
+        ...elem,
+      }));
+      const addNewData = [...datum, ...addedIdInFormDocument];
       setDatum(addNewData);
       lastRef(addNewData);
       setDataFormDocument([]);
-      setItemDocumentForm(...formDocument);
+      setItemDocumentForm(...addedIdInFormDocument);
       setDataFormClient({});
       handleCommon.show({ loading: false });
-      navigate('/report');
-      return handleCommon.notification(
+      handleCommon.notification(
         'Enhorabuena',
         'Los datos se registraron correctamente',
         'normal',
         true
       );
+      return navigate('/report');
     } catch (error) {
       handleCommon.show({ loading: false });
       return handleErrors(error);
@@ -202,6 +206,7 @@ const useForm = () => {
     clearTableDocument,
     selectItemInTable,
     deleteItemInTable,
+    lastRef,
     calculateTotal,
     isFormDocument,
     isFormClient,

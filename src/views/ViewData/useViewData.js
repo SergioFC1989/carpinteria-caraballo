@@ -8,21 +8,18 @@ import useForm from '../Form/useForm';
 
 const useViewData = () => {
   const { optionsHeader, handleCommon, navigate } = useCommon();
-  const { datum, setDatum, isFormDocument, calculateTotal } = useForm();
+  const {
+    datum,
+    setDatum,
+    isFormDocument,
+    calculateTotal,
+    lastRef,
+  } = useForm();
   const [itemDocumentForm, setItemDocumentForm] = useRecoilState(
     stateItemTable
   );
 
   const deleteItem = async () => {
-    console.log(datum);
-    if (datum.length <= 0) {
-      return handleCommon.notification(
-        'Ha ocurrido un error',
-        'Refresque la página por favor',
-        'critical',
-        true
-      );
-    }
     try {
       handleCommon.show({ loading: true });
       await queryFirestoreAPI.DELETE.DOCUMENT(
@@ -30,9 +27,10 @@ const useViewData = () => {
         itemDocumentForm.idFirestore
       );
       const filteredData = datum.filter(
-        (elem) => elem.Id !== itemDocumentForm.Id
+        (elem) => elem.idFirestore !== itemDocumentForm.idFirestore
       );
       setDatum(filteredData);
+      lastRef(filteredData);
       handleCommon.show({ loading: false, question: false });
       handleCommon.notification(
         'Enhorabuena',
@@ -53,7 +51,6 @@ const useViewData = () => {
   };
 
   useEffect(() => {
-    console.log(datum);
     calculateTotal(datum);
   }, [datum]);
 

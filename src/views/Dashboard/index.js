@@ -4,7 +4,7 @@ import MyApp from '../../common/assets/app.svg';
 
 const Dashboard = () => (
   <Main>
-    <Image fit="container" src={MyApp} />
+    <Image fit="contain" src={MyApp} />
   </Main>
 );
 export default Dashboard;

@@ -101,7 +101,7 @@ const FormClient = () => {
             schema={schemaFormClient}
             onClickSubmit={async (data) => {
               setDataFormClient(data);
-              checkCreatedClient([data]);
+              await checkCreatedClient([data]);
               handleCommon.show({ clients: false });
               return isFormDetails();
             }}
