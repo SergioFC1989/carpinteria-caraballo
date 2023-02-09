@@ -28,7 +28,6 @@ const useCommon = () => {
   const handleErrors = (value) => {
     const message =
       typeof value === 'object' ? value.message.toString() : value;
-    console.log(message);
     handleCommon.notification(
       'Lo sentimos...',
       message.includes('Firebase: Error')

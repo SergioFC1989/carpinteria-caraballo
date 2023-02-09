@@ -100,7 +100,6 @@ const FormClient = () => {
             disabledButton
             schema={schemaFormClient}
             onClickSubmit={async (data) => {
-              console.log(data);
               setDataFormClient(data);
               checkCreatedClient([data]);
               handleCommon.show({ clients: false });

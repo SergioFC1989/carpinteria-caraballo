@@ -16,7 +16,7 @@ const TableDocument = () => {
     deleteItem,
     setItemDocumentForm,
   } = useViewData();
-
+  console.log(datum);
   return (
     <>
       {isShow.question && (
