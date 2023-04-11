@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
 import { Box, Button, Heading, Image, Text } from 'grommet';
-import CustomDataTable from '../../../common/components/CustomDataTable';
+import { useEffect, useState } from 'react';
 import Logo from '../../../common/assets/logo.png';
+import CustomDataTable from '../../../common/components/CustomDataTable';
 
 import { schemaColumnsDocument } from '../../Form/prop-types';
 import useViewData from '../../ViewData/useViewData';
@@ -123,6 +123,7 @@ const Report = () => {
       </Box>
       <Box pad="small">
         <CustomDataTable
+          height="auto"
           options={{ delete: true }}
           schemaTable={schemaColumnsDocument}
           data={itemDocumentForm?.Documento}

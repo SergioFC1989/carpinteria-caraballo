@@ -1,6 +1,6 @@
+import { Box, Button, DataTable, Image, Text } from 'grommet';
+import { DocumentPdf, Edit, Trash, View } from 'grommet-icons';
 import { useEffect, useState } from 'react';
-import { DataTable, Box, Button, Text, Image } from 'grommet';
-import { View, DocumentPdf, Edit, Trash } from 'grommet-icons';
 import NotFound from '../assets/not-found.svg';
 
 const CustomDataTable = ({
@@ -19,6 +19,7 @@ const CustomDataTable = ({
   },
   product,
   actions = false,
+  height,
   ...props
 }) => {
   const [columns, setColumns] = useState([]);
@@ -77,14 +78,14 @@ const CustomDataTable = ({
       {data.length > 0 ? (
         <Box
           fill="horizontal"
-          height={{ min: 'auto', max: '30.8em' }}
-          overflow="auto"
+          height={height}
+          overflow="hidden"
           border="all"
           justify="center"
         >
           <DataTable
             pin
-            fill="horizontal"
+            fill
             data={data}
             columns={columns}
             border={{
@@ -105,4 +106,9 @@ const CustomDataTable = ({
     </Box>
   );
 };
+
+CustomDataTable.defaultProps = {
+  height: { min: 'auto', max: '30.8em' },
+};
+
 export default CustomDataTable;
