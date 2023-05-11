@@ -10,6 +10,8 @@ const Report = () => {
   const { itemDocumentForm, setItemDocumentForm, navigate } = useViewData();
   const [isPrint, setIsPrint] = useState(false);
 
+  const desgIVA = (itemDocumentForm.Total - itemDocumentForm.Neto).toFixed(2);
+
   useEffect(() => {
     Object.keys(itemDocumentForm).length <= 0 && navigate('/dashboard');
     window.document.title = `${itemDocumentForm.Tipo} - ${itemDocumentForm.Ref} - ${itemDocumentForm.Fecha}: ${itemDocumentForm?.Cliente?.Nombre}_${itemDocumentForm.Detalle}`;
@@ -21,13 +23,23 @@ const Report = () => {
 
   return (
     <>
-      <Box fill="horizontal" direction="row" justify="between" height="xsmall">
+      <Box
+        fill="horizontal"
+        direction="row"
+        justify="between"
+        height="xsmall"
+        border={{ side: 'bottom' }}
+        pad={{ bottom: 'small' }}
+        margin={{ bottom: 'medium' }}
+      >
         <Box>
-          <Box width="small" height="small">
-            <Image src={Logo} />
+          <Box align="start" width="medium" height="medium">
+            <Image style={{ margin: 0 }} fit="contain" src={Logo} />
           </Box>
         </Box>
-        <Box justify="end">
+      </Box>
+      <Box align="end">
+        <Box justify="start" pad={{ horizontal: 'small' }}>
           <Box direction="row" gap="xsmall">
             <Text margin="none">Documento:</Text>
             <Text margin="none" weight="bold">
@@ -48,7 +60,7 @@ const Report = () => {
           </Box>
         </Box>
       </Box>
-      <Box gap="small" pad="small">
+      <Box gap="small" pad={{ horizontal: 'small' }}>
         <Heading margin="none" level={3}>
           Datos del Ciente
         </Heading>
@@ -87,11 +99,12 @@ const Report = () => {
       </Box>
       <Box
         pad="small"
-        gap="medium"
+        margin="small"
         direction="row"
         background="light-2"
         justify="end"
         round="small"
+        gap="medium"
       >
         <Box direction="row" gap="xsmall">
           <Text margin="none">Total Neto:</Text>
@@ -106,9 +119,15 @@ const Report = () => {
           </Text>
         </Box>
         <Box direction="row" gap="xsmall">
+          <Text margin="none">Desglose I.V.A:</Text>
+          <Text margin="none" weight="bold">
+            {desgIVA} €
+          </Text>
+        </Box>
+        <Box direction="row" gap="xsmall">
           <Text margin="none">Total:</Text>
           <Text margin="none" weight="bold">
-            {itemDocumentForm?.Total} €
+            {itemDocumentForm.Total.toFixed(2)} €
           </Text>
         </Box>
       </Box>
