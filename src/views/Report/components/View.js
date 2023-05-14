@@ -1,6 +1,6 @@
 import { Box, Button, Heading, Image, Text } from 'grommet';
 import { useEffect, useState } from 'react';
-import Logo from '../../../common/assets/logo.png';
+import Logo from '../../../common/assets/logo.jpeg';
 import CustomDataTable from '../../../common/components/CustomDataTable';
 
 import { schemaColumnsDocument } from '../../Form/prop-types';
@@ -17,7 +17,7 @@ const Report = () => {
     window.document.title = `${itemDocumentForm.Tipo} - ${itemDocumentForm.Ref} - ${itemDocumentForm.Fecha}: ${itemDocumentForm?.Cliente?.Nombre}_${itemDocumentForm.Detalle}`;
     return () => {
       Object.keys(itemDocumentForm).length <= 0 && window.history.back();
-      window.document.title = 'Carpinteria - Antonio Carballo';
+      window.document.title = 'Carpinteria - Antonio Caraballo';
     };
   }, []);
 
@@ -27,39 +27,41 @@ const Report = () => {
         fill="horizontal"
         direction="row"
         justify="between"
-        height="xsmall"
+        height="170px"
+        align="center"
         border={{ side: 'bottom' }}
         pad={{ bottom: 'small' }}
         margin={{ bottom: 'medium' }}
       >
-        <Box>
+        <Box fill>
           <Box align="start" width="medium" height="medium">
             <Image style={{ margin: 0 }} fit="contain" src={Logo} />
           </Box>
         </Box>
-      </Box>
-      <Box align="end">
-        <Box justify="start" pad={{ horizontal: 'small' }}>
-          <Box direction="row" gap="xsmall">
-            <Text margin="none">Documento:</Text>
-            <Text margin="none" weight="bold">
-              {itemDocumentForm?.Tipo}
-            </Text>
-          </Box>
-          <Box direction="row" gap="xsmall">
-            <Text margin="none">Referencia:</Text>
-            <Text margin="none" weight="bold">
-              {itemDocumentForm?.Ref}
-            </Text>
-          </Box>
-          <Box direction="row" gap="xsmall">
-            <Text margin="none">Fecha:</Text>
-            <Text margin="none" weight="bold">
-              {itemDocumentForm?.Fecha}
-            </Text>
+        <Box align="end" width="large">
+          <Box justify="start" pad={{ horizontal: 'small' }}>
+            <Box direction="row" gap="xsmall">
+              <Text margin="none">Documento:</Text>
+              <Text margin="none" weight="bold">
+                {itemDocumentForm?.Tipo}
+              </Text>
+            </Box>
+            <Box direction="row" gap="xsmall">
+              <Text margin="none">Referencia:</Text>
+              <Text margin="none" weight="bold">
+                {itemDocumentForm?.Ref}
+              </Text>
+            </Box>
+            <Box direction="row" gap="xsmall">
+              <Text margin="none">Fecha:</Text>
+              <Text margin="none" weight="bold">
+                {itemDocumentForm?.Fecha}
+              </Text>
+            </Box>
           </Box>
         </Box>
       </Box>
+
       <Box gap="small" pad={{ horizontal: 'small' }}>
         <Heading margin="none" level={3}>
           Datos del Ciente
@@ -127,7 +129,7 @@ const Report = () => {
         <Box direction="row" gap="xsmall">
           <Text margin="none">Total:</Text>
           <Text margin="none" weight="bold">
-            {itemDocumentForm.Total.toFixed(2)} €
+            {itemDocumentForm.Total && itemDocumentForm.Total.toFixed(2)} €
           </Text>
         </Box>
       </Box>

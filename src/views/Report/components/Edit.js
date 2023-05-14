@@ -1,30 +1,28 @@
-import { useRecoilState } from 'recoil';
-import { useContext, useEffect, useState } from 'react';
-import { AddCircle, Erase } from 'grommet-icons';
 import {
   Box,
   Button,
   Collapsible,
   FormField,
   Heading,
-  Image,
   ResponsiveContext,
   Text,
   TextInput,
 } from 'grommet';
+import { AddCircle, Erase } from 'grommet-icons';
+import { useContext, useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import queryFirestoreAPI from '../../../api/query/firebase-query';
 import CustomDataTable from '../../../common/components/CustomDataTable';
-import Layout from '../../../common/components/Layout';
 import Form from '../../../common/components/Form';
+import Layout from '../../../common/components/Layout';
 import Question from '../../../common/components/Question';
-import Logo from '../../../common/assets/logo.png';
+import { stateFetchDatum } from '../../../common/context/common-context';
+import useCommon from '../../../common/hooks/useCommon';
 import {
   schemaColumnsDocument,
   schemaFormDocument,
 } from '../../Form/prop-types';
 import useViewData from '../../ViewData/useViewData';
-import useCommon from '../../../common/hooks/useCommon';
-import queryFirestoreAPI from '../../../api/query/firebase-query';
-import { stateFetchDatum } from '../../../common/context/common-context';
 
 const Report = () => {
   const size = useContext(ResponsiveContext);
@@ -131,12 +129,6 @@ const Report = () => {
           justify="between"
           height={isShow.isEditForm && 'xsmall'}
         >
-          <Box>
-            <Box width="small" height="small">
-              <Image src={Logo} />
-            </Box>
-          </Box>
-
           <Box direction="row" gap="small" height="small">
             <FormField required label="Documento" margin="small">
               <TextInput value={itemDocumentForm.Tipo} />
@@ -167,10 +159,11 @@ const Report = () => {
         </Box>
         <Box gap="small" margin={{ horizontal: 'xsmall' }}>
           <Box direction="row" align="baseline" gap="medium">
-            <Heading margin="none" level={2}>
+            <Heading margin="none" level={3}>
               Datos del Ciente
             </Heading>
             <Button
+              hoverIndicator
               size="small"
               label={isOpen.client ? 'Ocultar detalles' : 'Ver detalles'}
               onClick={() =>
