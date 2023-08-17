@@ -77,14 +77,13 @@ const CustomDataTable = ({
     <Box>
       {data.length > 0 ? (
         <Box
+          direction="row"
           fill="horizontal"
-          height={height}
-          overflow="hidden"
           border="all"
           justify="center"
+          round="small"
         >
           <DataTable
-            pin
             fill
             data={data}
             columns={columns}
@@ -105,10 +104,6 @@ const CustomDataTable = ({
       )}
     </Box>
   );
-};
-
-CustomDataTable.defaultProps = {
-  height: { min: 'auto', max: '30.8em' },
 };
 
 export default CustomDataTable;

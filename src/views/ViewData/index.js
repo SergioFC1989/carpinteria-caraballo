@@ -1,21 +1,16 @@
-import { useContext } from 'react';
 import { Box, Heading, ResponsiveContext } from 'grommet';
+import { useContext } from 'react';
 import CustomDataTable from '../../common/components/CustomDataTable';
+import Question from '../../common/components/Question';
+import useCommon from '../../common/hooks/useCommon';
 import schemaColumnsData from './prop-types';
 import useViewData from './useViewData';
-import useCommon from '../../common/hooks/useCommon';
-import Question from '../../common/components/Question';
 
 const TableDocument = () => {
   const size = useContext(ResponsiveContext);
   const { isShow, handleCommon } = useCommon();
-  const {
-    datum,
-    navigate,
-    calculateTotal,
-    deleteItem,
-    setItemDocumentForm,
-  } = useViewData();
+  const { datum, navigate, calculateTotal, deleteItem, setItemDocumentForm } =
+    useViewData();
   console.log(datum);
   return (
     <>
